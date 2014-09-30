@@ -2,9 +2,7 @@
   'use strict';
   $.fn.patternLock = function(options) {
 
-    var started = false;
-    var nums = [];
-    var arrCoordinates = [];
+    var started = false, nums = [], arrCoordinates = [], that = this;
     var canvas, canvasContext, context;
     var i, j, len;
 
@@ -21,7 +19,7 @@
     //this is to keep from overriding our "defaults" object.
     var opts = $.extend({}, defaults(), options);
 
-    var content = '<div class="patternlock"><div class="insideWrapper"><canvas id="patternLockCanvas" width="100%" height="100%;"></canvas><table class="tbl tbl1" cellspacing="25px">';
+    var content = '<div class="patternlock"><div class="insideWrapper"><canvas class="patternLockCanvas" width="100%" height="100%;"></canvas><table class="tbl tbl1" cellspacing="25px">';
     for ( i = 1; i <= opts.rows; i++) {
       content = content + "<tr>";
       for ( j = 1; j <= opts.columns; j++) {
@@ -32,7 +30,7 @@
     content = content + '</table></div></div>';
     this.append(content);
 
-    canvas = document.getElementById('patternLockCanvas');
+    canvas = $('.patternLockCanvas', that)[0];
     canvas.width = opts.width;
     canvas.height = opts.width;
     canvasContext = canvas.getContext('2d');
