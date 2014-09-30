@@ -96,11 +96,10 @@
         if (isMouseOverLockHoles($(this), evt.pageX, evt.pageY)) {
           var num = $(this).attr('data-value'),
             lastNum = nums[nums.length - 1];
-          if (started === true && lastNum !== num) {
+          if (started === true && lastNum !== num && nums.indexOf(num) === -1) {
             arrCoordinates.push(getCenter(this));
             $(this).addClass('selected');
             nums.push($(this).attr('data-value'));
-            console.log(nums);
           }
         }
       });
