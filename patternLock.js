@@ -19,11 +19,11 @@
     //this is to keep from overriding our "defaults" object.
     var opts = $.extend({}, defaults(), options);
 
-    var content = '<div class="patternlock"><div class="insideWrapper"><canvas class="patternLockCanvas" width="100%" height="100%;"></canvas><table class="tbl tbl1" cellspacing="25px">';
+    var content = '<div class="patternlock" style="width:'+opts.width+'px;height:'+opts.height+'px"><div class="insideWrapper"><canvas class="patternLockCanvas" width="100%" height="100%;"></canvas><table class="tbl tbl1" cellspacing="25px">';
     for ( i = 1; i <= opts.rows; i++) {
       content = content + "<tr>";
       for ( j = 1; j <= opts.columns; j++) {
-        content = content + '<td id="' + (i * j) + '">&nbsp;</td>';
+        content = content + '<td data-value="' + (i * j) + '">&nbsp;</td>';
       }
       content = content + "</tr>";
     }
@@ -94,12 +94,13 @@
       context = $(this);
       $('td', context).each(function() {
         if (isMouseOverLockHoles($(this), evt.pageX, evt.pageY)) {
-          var num = $(this).attr('id'),
+          var num = $(this).attr('data-value'),
             lastNum = nums[nums.length - 1];
           if (started === true && lastNum !== num) {
             arrCoordinates.push(getCenter(this));
-            $(this).addClass('blue');
-            nums.push($(this).attr('id'));
+            $(this).addClass('selected');
+            nums.push($(this).attr('data-value'));
+            console.log(nums);
           }
         }
       });
@@ -123,7 +124,7 @@
         started = false;
         drawLines();
         window.tmo = setTimeout(function() {
-          $('.tbl td').removeClass('blue');
+          $('.tbl td').removeClass('selected');
           clearCanvas();
         }, 1000);
       }
@@ -139,9 +140,10 @@
           started = true;
           nums = [];
           arrCoordinates = [];
-          $('td', context).removeClass('blue');
-          $(this).addClass('blue');
-          nums.push($(this).attr('id'));
+          $('td', context).removeClass('selected');
+          clearCanvas();
+          $(this).addClass('selected');
+          nums.push($(this).attr('data-value'));
           arrCoordinates.push(getCenter(this));
 
         }

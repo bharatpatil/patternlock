@@ -14,8 +14,6 @@
 }
 
 .patternlock {
-  width: 250px;
-  height: 250px;
   border: 1px solid black;
 }
 
@@ -72,6 +70,6 @@
   background-color:red;
 }
 
-.tbl td.blue{
+.tbl td.selected{
   background-color:blue;
 }
