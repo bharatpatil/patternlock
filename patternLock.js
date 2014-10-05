@@ -1,12 +1,15 @@
+/*jslint browser: true*/
+/*global $, jQuery*/
 (function($) {
     'use strict';
     $.fn.patternLock = function(options) {
         var started = false,
             nums = [],
             arrCoordinates = [],
+            patternClearTimeout = null,
             that = this;
         var canvas, canvasContext, context;
-        var i, j, len, idCounter;
+        var i, j, idCounter;
         var defaults = function() {
             return {
                 rows: 3,
@@ -37,14 +40,6 @@
         canvas.height = opts.width;
         canvasContext = canvas.getContext('2d');
 
-        function getMousePos(canvas, evt) {
-            var rect = canvas.getBoundingClientRect();
-            return {
-                x: evt.clientX - rect.left,
-                y: evt.clientY - rect.top
-            };
-        }
-
         function SimpleCircle(x, y, r) {
             this.centerX = x;
             this.centerY = y;
@@ -66,9 +61,8 @@
                     circle = new SimpleCircle(offset.left + radius, offset.top + radius, radius);
                 //TO-DO: are we going to support only circle of square as well
                 return circle.includesXY(left, top);
-            } else {
-                return top >= offset.top && left >= offset.left && left <= (offset.left + element[0].offsetWidth) && top <= (offset.top + element[0].offsetHeight);
-            }
+            } 
+            return top >= offset.top && left >= offset.left && left <= (offset.left + element[0].offsetWidth) && top <= (offset.top + element[0].offsetHeight);
         }
 
         function getCenter(ele) {
@@ -97,7 +91,7 @@
             if (arrCoordinates.length < 2) {
                 return;
             }
-            var c = arrCoordinates,
+            var c = arrCoordinates;
                 i = c.length - 1;
             canvasContext.lineWidth = 4;
             canvasContext.beginPath();
@@ -111,10 +105,10 @@
             if (started === true) {
                 $('#pattern').text(nums.join(','));
                 started = false;
-                if (window.tmo) {
-                    clearTimeout(window.tmo);
+                if (patternClearTimeout) {
+                    clearTimeout(patternClearTimeout);
                 }
-                window.tmo = setTimeout(function() {
+                patternClearTimeout = setTimeout(function() {
                     $('.tbl td').removeClass('selected');
                     clearCanvas();
                 }, 1000);
@@ -144,8 +138,8 @@
             pattenDrawEnd();
         });
         $('.tbl').on('vmousedown', function(evt) {
-            if (window.tmo) {
-                clearTimeout(window.tmo);
+            if (patternClearTimeout) {
+                clearTimeout(patternClearTimeout);
             }
             evt.preventDefault();
             context = $(this);
@@ -163,4 +157,4 @@
             });
         });
     };
-})(jQuery);
+}(jQuery));
