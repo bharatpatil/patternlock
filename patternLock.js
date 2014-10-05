@@ -7,6 +7,10 @@
             nums = [],
             arrCoordinates = [],
             patternClearTimeout = null,
+            isCanvas = (function() {
+                var elem = document.createElement('canvas');
+                return !!(elem.getContext && elem.getContext('2d'));
+            }()),
             that = this;
         var canvas, canvasContext, context;
         var i, j, idCounter;
@@ -24,6 +28,7 @@
         };
         //this is to keep from overriding our "defaults" object.
         var opts = $.extend({}, defaults(), options);
+
         var content = '<div class="patternlock" style="width:' + opts.width + 'px;height:' + opts.height + 'px"><div class="insideWrapper"><canvas class="patternLockCanvas" width="100%" height="100%;"></canvas><table class="tbl tbl1" cellspacing="25px">';
         idCounter = 1;
         for (i = 1; i <= opts.rows; i++) {
@@ -61,7 +66,7 @@
                     circle = new SimpleCircle(offset.left + radius, offset.top + radius, radius);
                 //TO-DO: are we going to support only circle of square as well
                 return circle.includesXY(left, top);
-            } 
+            }
             return top >= offset.top && left >= offset.left && left <= (offset.left + element[0].offsetWidth) && top <= (offset.top + element[0].offsetHeight);
         }
 
@@ -92,7 +97,7 @@
                 return;
             }
             var c = arrCoordinates;
-                i = c.length - 1;
+            i = c.length - 1;
             canvasContext.lineWidth = 4;
             canvasContext.beginPath();
             canvasContext.moveTo(c[i - 1].x, c[i - 1].y);
@@ -101,6 +106,7 @@
             canvasContext.stroke();
             canvasContext.closePath();
         }
+
         function pattenDrawEnd() {
             if (started === true) {
                 $('#pattern').text(nums.join(','));
@@ -112,7 +118,7 @@
                     $('.tbl td').removeClass('selected');
                     clearCanvas();
                 }, 1000);
-            }          
+            }
         }
         $('.tbl').on('vmousemove', function(evt) {
             evt.preventDefault();
