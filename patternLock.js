@@ -8,6 +8,7 @@
             arrCoordinates = [],
             patternClearTimeout = null,
             isCanvas = (function() {
+                //function taken from http://stackoverflow.com/questions/2745432/best-way-to-detect-that-html5-canvas-is-not-supported
                 var elem = document.createElement('canvas');
                 return !!(elem.getContext && elem.getContext('2d'));
             }()),
@@ -29,7 +30,11 @@
         //this is to keep from overriding our "defaults" object.
         var opts = $.extend({}, defaults(), options);
 
-        var content = '<div class="patternlock" style="width:' + opts.width + 'px;height:' + opts.height + 'px"><div class="insideWrapper"><canvas class="patternLockCanvas" width="100%" height="100%;"></canvas><table class="tbl tbl1" cellspacing="25px">';
+        var content = '<div class="patternlock" style="width:' + opts.width + 'px;height:' + opts.height + 'px"><div class="insideWrapper">';
+        if(isCanvas) {
+            content += '<canvas class="patternLockCanvas" width="100%" height="100%;"></canvas>';
+        }
+        content += '<table class="tbl tbl1" cellspacing="25px">';
         idCounter = 1;
         for (i = 1; i <= opts.rows; i++) {
             content = content + "<tr>";
@@ -40,16 +45,20 @@
         }
         content = content + '</table></div></div>';
         this.append(content);
-        canvas = $('.patternLockCanvas', that)[0];
-        canvas.width = opts.width;
-        canvas.height = opts.width;
-        canvasContext = canvas.getContext('2d');
+
+        if(isCanvas) {
+            canvas = $('.patternLockCanvas', that)[0];
+            canvas.width = opts.width;
+            canvas.height = opts.width;
+            canvasContext = canvas.getContext('2d');
+        }
 
         function SimpleCircle(x, y, r) {
             this.centerX = x;
             this.centerY = y;
             this.radius = r;
         }
+
         SimpleCircle.prototype = {
             distanceTo: function(pageX, pageY) {
                 return Math.sqrt(Math.pow(pageX - this.centerX, 2) + Math.pow(pageY - this.centerY, 2));
@@ -86,6 +95,9 @@
         }
 
         function clearCanvas() {
+            if(!isCanvas) {
+                return;
+            }
             canvasContext.clearRect(0, 0, canvas.width, canvas.height);
             var w = canvas.width;
             canvas.width = 1;
@@ -93,7 +105,7 @@
         }
 
         function drawLine() {
-            if (arrCoordinates.length < 2) {
+            if(!isCanvas || arrCoordinates.length < 2) {
                 return;
             }
             var c = arrCoordinates;
