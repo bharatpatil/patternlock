@@ -24,13 +24,17 @@
                 randomizeIds: false, // this should be used to randomizeId of td
                 isCircle: true, // this will be required to identify if holes are of shape circle or square
                 showPatterLine: true,
-                patternLineColor: '#000000'
+                patternLineColor: '#000000',
+                fieldName: ''
             };
         };
         //this is to keep from overriding our "defaults" object.
         var opts = $.extend({}, defaults(), options);
 
         var content = '<div class="patternlock" style="width:' + opts.width + 'px;height:' + opts.height + 'px"><div class="insideWrapper">';
+        if(opts.fieldName != undefined && opts.fieldName !=='' && opts.fieldName != null){
+            content += '<input type="hidden" name="'+opts.fieldName+'">'
+        }
         if(isCanvas) {
             content += '<canvas class="patternLockCanvas" width="100%" height="100%;"></canvas>';
         }
@@ -122,6 +126,9 @@
         function pattenDrawEnd() {
             if (started === true) {
                 $('#pattern').text(nums.join(','));
+                if(opts.fieldName != undefined && opts.fieldName !=='' && opts.fieldName != null){
+                    $('input[type=hidden][name='+opts.fieldName+']').val(nums.join(','));
+                }
                 started = false;
                 if (patternClearTimeout) {
                     clearTimeout(patternClearTimeout);
