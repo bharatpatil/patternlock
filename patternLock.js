@@ -25,7 +25,8 @@
                 isCircle: true, // this will be required to identify if holes are of shape circle or square
                 showPatterLine: true,
                 patternLineColor: '#000000',
-                fieldName: ''
+                fieldName: '',
+                valueSeparator:','
             };
         };
         //this is to keep from overriding our "defaults" object.
@@ -127,7 +128,7 @@
             if (started === true) {
                 $('#pattern').text(nums.join(','));
                 if(opts.fieldName != undefined && opts.fieldName !=='' && opts.fieldName != null){
-                    $('input[type=hidden][name='+opts.fieldName+']').val(nums.join(','));
+                    $('input[type=hidden][name='+opts.fieldName+']').val(nums.join(opts.valueSeparator));
                 }
                 started = false;
                 if (patternClearTimeout) {
