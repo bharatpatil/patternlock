@@ -26,12 +26,18 @@
                 showPatterLine: true,
                 patternLineColor: '#000000',
                 fieldName: '',
-                valueSeparator:','
+                valueSeparator:',',
+                valueArray:[]
             };
         };
         //this is to keep from overriding our "defaults" object.
         var opts = $.extend({}, defaults(), options);
-
+        //Initializing value array
+        if(opts.valueArray.length===0 || opts.valueArray.length !== opts.rows*opts.columns ){
+            for (var i = 0; i < (opts.rows*opts.columns) ; i++) {
+                opts.valueArray[i] = i+1;
+            };
+        }
         var content = '<div class="patternlock" style="width:' + opts.width + 'px;height:' + opts.height + 'px"><div class="insideWrapper">';
         if(opts.fieldName != undefined && opts.fieldName !=='' && opts.fieldName != null){
             content += '<input type="hidden" name="'+opts.fieldName+'">'
@@ -40,11 +46,11 @@
             content += '<canvas class="patternLockCanvas" width="100%" height="100%;"></canvas>';
         }
         content += '<table class="tbl tbl1" cellspacing="25px">';
-        idCounter = 1;
+        idCounter = 0;
         for (i = 1; i <= opts.rows; i++) {
             content = content + "<tr>";
             for (j = 1; j <= opts.columns; j++) {
-                content = content + '<td data-value="' + (idCounter++) + '">&nbsp;</td>';
+                content = content + '<td data-value="' + opts.valueArray[idCounter++] + '">&nbsp;</td>';
             }
             content = content + "</tr>";
         }
