@@ -38,11 +38,11 @@
         if(opts.valueArray.length===0 || opts.valueArray.length !== opts.rows*opts.columns ){
             for (i = 0; i < (opts.rows*opts.columns) ; i++) {
                 opts.valueArray[i] = i+1;
-            };
+            }
         }
         var content = '<div class="patternlock" style="width:' + opts.width + 'px;height:' + opts.height + 'px"><div class="insideWrapper">';
         if(opts.fieldName != undefined && opts.fieldName !=='' && opts.fieldName != null){
-            content += '<input type="hidden" name="'+opts.fieldName+'">'
+            content += '<input type="hidden" name="'+opts.fieldName+'">';
         }
         if(isCanvas===true && opts.showPatternLine===true) {
             content += '<canvas class="patternLockCanvas" width="100%" height="100%;"></canvas>';
@@ -53,8 +53,9 @@
             content = content + "<tr>";
             for (j = 1; j <= opts.columns; j++) {
                 content = content + '<td data-value="' + opts.valueArray[idCounter++] + '">';
-                if(opts.centerCircle)
+                if(opts.centerCircle) {
                     content = content +'<div class="centerCircle">&nbsp;</div>';
+                }
                 content = content +'</td>';
             }
             content = content + "</tr>";
