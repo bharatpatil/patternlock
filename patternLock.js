@@ -23,7 +23,7 @@
                 height: 250,
                 randomizeIds: false, // this should be used to randomizeId of td
                 isCircle: true, // this will be required to identify if holes are of shape circle or square
-                showPatterLine: true,
+                showPatternLine: true,
                 patternLineColor: '#000000',
                 fieldName: '',
                 valueSeparator:',',
@@ -35,7 +35,7 @@
         var opts = $.extend({}, defaults(), options);
         //Initializing value array
         if(opts.valueArray.length===0 || opts.valueArray.length !== opts.rows*opts.columns ){
-            for (var i = 0; i < (opts.rows*opts.columns) ; i++) {
+            for (i = 0; i < (opts.rows*opts.columns) ; i++) {
                 opts.valueArray[i] = i+1;
             };
         }
@@ -43,7 +43,7 @@
         if(opts.fieldName != undefined && opts.fieldName !=='' && opts.fieldName != null){
             content += '<input type="hidden" name="'+opts.fieldName+'">'
         }
-        if(isCanvas) {
+        if(isCanvas===true && opts.showPatternLine===true) {
             content += '<canvas class="patternLockCanvas" width="100%" height="100%;"></canvas>';
         }
         content += '<table class="tbl tbl1" cellspacing="25px">';
@@ -61,7 +61,7 @@
         content = content + '</table></div></div>';
         this.append(content);
 
-        if(isCanvas) {
+        if(isCanvas===true && opts.showPatternLine===true) {
             canvas = $('.patternLockCanvas', that)[0];
             canvas.width = opts.width;
             canvas.height = opts.width;
@@ -95,6 +95,9 @@
         }
 
         function getCenter(ele) {
+            if(isCanvas===false || opts.showPatternLine===false) {
+                return;
+            }
             var offset = $(ele).offset(),
                 width = $(ele).outerWidth(),
                 height = $(ele).outerHeight(),
@@ -110,7 +113,7 @@
         }
 
         function clearCanvas() {
-            if(!isCanvas) {
+            if(isCanvas===false || opts.showPatternLine===false) {
                 return;
             }
             canvasContext.clearRect(0, 0, canvas.width, canvas.height);
@@ -120,7 +123,7 @@
         }
 
         function drawLine() {
-            if(!isCanvas || arrCoordinates.length < 2) {
+            if(isCanvas===false || opts.showPatternLine===false || arrCoordinates.length < 2) {
                 return;
             }
             var c = arrCoordinates;
