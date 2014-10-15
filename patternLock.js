@@ -29,7 +29,8 @@
                 valueSeparator:',',
                 valueArray:[],
                 centerCircle:false,
-                lineWidth: 4
+                lineWidth: 4,
+                centerCircleSize: 10
             };
         };
         //this is to keep from overriding our "defaults" object.
@@ -54,7 +55,7 @@
             for (j = 1; j <= opts.columns; j++) {
                 content = content + '<td data-value="' + opts.valueArray[idCounter++] + '">';
                 if(opts.centerCircle) {
-                    content = content +'<div class="centerCircle">&nbsp;</div>';
+                    content = content +'<div class="centerCircle" style="width:'+opts.centerCircleSize+'px;height:'+opts.centerCircleSize+'px">&nbsp;</div>';
                 }
                 content = content +'</td>';
             }

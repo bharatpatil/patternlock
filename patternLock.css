@@ -63,8 +63,6 @@
     background-color: blue;
 }
 .patternlock .centerCircle{
-    width:10px;
-    height:10px;
     border:1px solid red;
     margin:auto;
     border-radius:50%;
