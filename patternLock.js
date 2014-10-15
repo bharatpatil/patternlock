@@ -27,7 +27,8 @@
                 patternLineColor: '#000000',
                 fieldName: '',
                 valueSeparator:',',
-                valueArray:[]
+                valueArray:[],
+                centerCircle:false
             };
         };
         //this is to keep from overriding our "defaults" object.
@@ -50,7 +51,10 @@
         for (i = 1; i <= opts.rows; i++) {
             content = content + "<tr>";
             for (j = 1; j <= opts.columns; j++) {
-                content = content + '<td data-value="' + opts.valueArray[idCounter++] + '">&nbsp;</td>';
+                content = content + '<td data-value="' + opts.valueArray[idCounter++] + '">';
+                if(opts.centerCircle)
+                    content = content +'<div class="centerCircle">&nbsp;</div>';
+                content = content +'</td>';
             }
             content = content + "</tr>";
         }

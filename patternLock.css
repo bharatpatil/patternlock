@@ -72,10 +72,19 @@ border-collapse: separate;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    text-align: center;
 }
 .tbl td.red {
     background-color: red;
 }
 .tbl td.selected {
     background-color: blue;
+}
+.centerCircle{
+    width:10px;
+    height:10px;
+    border:1px solid red;
+    margin:auto;
+    border-radius:50%;
+    background-color: yellow
 }
