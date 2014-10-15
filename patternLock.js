@@ -28,7 +28,8 @@
                 fieldName: '',
                 valueSeparator:',',
                 valueArray:[],
-                centerCircle:false
+                centerCircle:false,
+                lineWidth: 4
             };
         };
         //this is to keep from overriding our "defaults" object.
@@ -128,7 +129,7 @@
             }
             var c = arrCoordinates;
             i = c.length - 1;
-            canvasContext.lineWidth = 4;
+            canvasContext.lineWidth = opts.lineWidth;
             canvasContext.beginPath();
             canvasContext.moveTo(c[i - 1].x, c[i - 1].y);
             canvasContext.lineTo(c[i].x, c[i].y);
