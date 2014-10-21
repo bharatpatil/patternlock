@@ -1,0 +1,331 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 warn package.json jquery-boilerplate@3.3.1 No repository field.
+5 warn package.json jquery-boilerplate@3.3.1 No README data
+6 verbose readDependencies using package.json deps
+7 verbose install where, deps [ '/Volumes/Data/rnd/patternlock/jquery-boilerplate',
+7 verbose install   [ 'grunt',
+7 verbose install     'grunt-cli',
+7 verbose install     'grunt-contrib-jshint',
+7 verbose install     'grunt-contrib-concat',
+7 verbose install     'grunt-contrib-uglify',
+7 verbose install     'grunt-contrib-coffee' ] ]
+8 info preinstall jquery-boilerplate@3.3.1
+9 verbose readDependencies using package.json deps
+10 verbose cache add [ 'grunt@~0.4.1', null ]
+11 verbose cache add name=undefined spec="grunt@~0.4.1" args=["grunt@~0.4.1",null]
+12 verbose parsed url { protocol: null,
+12 verbose parsed url   slashes: null,
+12 verbose parsed url   auth: null,
+12 verbose parsed url   host: null,
+12 verbose parsed url   port: null,
+12 verbose parsed url   hostname: null,
+12 verbose parsed url   hash: null,
+12 verbose parsed url   search: null,
+12 verbose parsed url   query: null,
+12 verbose parsed url   pathname: 'grunt@~0.4.1',
+12 verbose parsed url   path: 'grunt@~0.4.1',
+12 verbose parsed url   href: 'grunt@~0.4.1' }
+13 verbose cache add [ 'grunt-cli@~0.1.7', null ]
+14 verbose cache add name=undefined spec="grunt-cli@~0.1.7" args=["grunt-cli@~0.1.7",null]
+15 verbose parsed url { protocol: null,
+15 verbose parsed url   slashes: null,
+15 verbose parsed url   auth: null,
+15 verbose parsed url   host: null,
+15 verbose parsed url   port: null,
+15 verbose parsed url   hostname: null,
+15 verbose parsed url   hash: null,
+15 verbose parsed url   search: null,
+15 verbose parsed url   query: null,
+15 verbose parsed url   pathname: 'grunt-cli@~0.1.7',
+15 verbose parsed url   path: 'grunt-cli@~0.1.7',
+15 verbose parsed url   href: 'grunt-cli@~0.1.7' }
+16 verbose cache add [ 'grunt-contrib-jshint@~0.4.3', null ]
+17 verbose cache add name=undefined spec="grunt-contrib-jshint@~0.4.3" args=["grunt-contrib-jshint@~0.4.3",null]
+18 verbose parsed url { protocol: null,
+18 verbose parsed url   slashes: null,
+18 verbose parsed url   auth: null,
+18 verbose parsed url   host: null,
+18 verbose parsed url   port: null,
+18 verbose parsed url   hostname: null,
+18 verbose parsed url   hash: null,
+18 verbose parsed url   search: null,
+18 verbose parsed url   query: null,
+18 verbose parsed url   pathname: 'grunt-contrib-jshint@~0.4.3',
+18 verbose parsed url   path: 'grunt-contrib-jshint@~0.4.3',
+18 verbose parsed url   href: 'grunt-contrib-jshint@~0.4.3' }
+19 verbose cache add [ 'grunt-contrib-concat@~0.3.0', null ]
+20 verbose cache add name=undefined spec="grunt-contrib-concat@~0.3.0" args=["grunt-contrib-concat@~0.3.0",null]
+21 verbose parsed url { protocol: null,
+21 verbose parsed url   slashes: null,
+21 verbose parsed url   auth: null,
+21 verbose parsed url   host: null,
+21 verbose parsed url   port: null,
+21 verbose parsed url   hostname: null,
+21 verbose parsed url   hash: null,
+21 verbose parsed url   search: null,
+21 verbose parsed url   query: null,
+21 verbose parsed url   pathname: 'grunt-contrib-concat@~0.3.0',
+21 verbose parsed url   path: 'grunt-contrib-concat@~0.3.0',
+21 verbose parsed url   href: 'grunt-contrib-concat@~0.3.0' }
+22 verbose cache add name="grunt" spec="~0.4.1" args=["grunt","~0.4.1"]
+23 verbose parsed url { protocol: null,
+23 verbose parsed url   slashes: null,
+23 verbose parsed url   auth: null,
+23 verbose parsed url   host: null,
+23 verbose parsed url   port: null,
+23 verbose parsed url   hostname: null,
+23 verbose parsed url   hash: null,
+23 verbose parsed url   search: null,
+23 verbose parsed url   query: null,
+23 verbose parsed url   pathname: '~0.4.1',
+23 verbose parsed url   path: '~0.4.1',
+23 verbose parsed url   href: '~0.4.1' }
+24 verbose addNamed [ 'grunt', '~0.4.1' ]
+25 verbose addNamed [ null, '>=0.4.1-0 <0.5.0-0' ]
+26 verbose cache add name="grunt-cli" spec="~0.1.7" args=["grunt-cli","~0.1.7"]
+27 verbose parsed url { protocol: null,
+27 verbose parsed url   slashes: null,
+27 verbose parsed url   auth: null,
+27 verbose parsed url   host: null,
+27 verbose parsed url   port: null,
+27 verbose parsed url   hostname: null,
+27 verbose parsed url   hash: null,
+27 verbose parsed url   search: null,
+27 verbose parsed url   query: null,
+27 verbose parsed url   pathname: '~0.1.7',
+27 verbose parsed url   path: '~0.1.7',
+27 verbose parsed url   href: '~0.1.7' }
+28 verbose addNamed [ 'grunt-cli', '~0.1.7' ]
+29 verbose addNamed [ null, '>=0.1.7-0 <0.2.0-0' ]
+30 verbose cache add name="grunt-contrib-jshint" spec="~0.4.3" args=["grunt-contrib-jshint","~0.4.3"]
+31 verbose parsed url { protocol: null,
+31 verbose parsed url   slashes: null,
+31 verbose parsed url   auth: null,
+31 verbose parsed url   host: null,
+31 verbose parsed url   port: null,
+31 verbose parsed url   hostname: null,
+31 verbose parsed url   hash: null,
+31 verbose parsed url   search: null,
+31 verbose parsed url   query: null,
+31 verbose parsed url   pathname: '~0.4.3',
+31 verbose parsed url   path: '~0.4.3',
+31 verbose parsed url   href: '~0.4.3' }
+32 verbose addNamed [ 'grunt-contrib-jshint', '~0.4.3' ]
+33 verbose addNamed [ null, '>=0.4.3-0 <0.5.0-0' ]
+34 verbose cache add [ 'grunt-contrib-uglify@~0.2.0', null ]
+35 verbose cache add name=undefined spec="grunt-contrib-uglify@~0.2.0" args=["grunt-contrib-uglify@~0.2.0",null]
+36 verbose parsed url { protocol: null,
+36 verbose parsed url   slashes: null,
+36 verbose parsed url   auth: null,
+36 verbose parsed url   host: null,
+36 verbose parsed url   port: null,
+36 verbose parsed url   hostname: null,
+36 verbose parsed url   hash: null,
+36 verbose parsed url   search: null,
+36 verbose parsed url   query: null,
+36 verbose parsed url   pathname: 'grunt-contrib-uglify@~0.2.0',
+36 verbose parsed url   path: 'grunt-contrib-uglify@~0.2.0',
+36 verbose parsed url   href: 'grunt-contrib-uglify@~0.2.0' }
+37 verbose cache add [ 'grunt-contrib-coffee@~0.7.0', null ]
+38 verbose cache add name=undefined spec="grunt-contrib-coffee@~0.7.0" args=["grunt-contrib-coffee@~0.7.0",null]
+39 verbose parsed url { protocol: null,
+39 verbose parsed url   slashes: null,
+39 verbose parsed url   auth: null,
+39 verbose parsed url   host: null,
+39 verbose parsed url   port: null,
+39 verbose parsed url   hostname: null,
+39 verbose parsed url   hash: null,
+39 verbose parsed url   search: null,
+39 verbose parsed url   query: null,
+39 verbose parsed url   pathname: 'grunt-contrib-coffee@~0.7.0',
+39 verbose parsed url   path: 'grunt-contrib-coffee@~0.7.0',
+39 verbose parsed url   href: 'grunt-contrib-coffee@~0.7.0' }
+40 verbose cache add name="grunt-contrib-concat" spec="~0.3.0" args=["grunt-contrib-concat","~0.3.0"]
+41 verbose parsed url { protocol: null,
+41 verbose parsed url   slashes: null,
+41 verbose parsed url   auth: null,
+41 verbose parsed url   host: null,
+41 verbose parsed url   port: null,
+41 verbose parsed url   hostname: null,
+41 verbose parsed url   hash: null,
+41 verbose parsed url   search: null,
+41 verbose parsed url   query: null,
+41 verbose parsed url   pathname: '~0.3.0',
+41 verbose parsed url   path: '~0.3.0',
+41 verbose parsed url   href: '~0.3.0' }
+42 verbose addNamed [ 'grunt-contrib-concat', '~0.3.0' ]
+43 verbose addNamed [ null, '>=0.3.0-0 <0.4.0-0' ]
+44 silly lockFile 766a3bd3-grunt-0-4-1 grunt@~0.4.1
+45 verbose lock grunt@~0.4.1 /Users/bharatpatil/.npm/766a3bd3-grunt-0-4-1.lock
+46 silly lockFile 89325b95-grunt-cli-0-1-7 grunt-cli@~0.1.7
+47 verbose lock grunt-cli@~0.1.7 /Users/bharatpatil/.npm/89325b95-grunt-cli-0-1-7.lock
+48 silly lockFile e22b9980-grunt-contrib-jshint-0-4-3 grunt-contrib-jshint@~0.4.3
+49 verbose lock grunt-contrib-jshint@~0.4.3 /Users/bharatpatil/.npm/e22b9980-grunt-contrib-jshint-0-4-3.lock
+50 silly lockFile 0e44e68e-grunt-contrib-concat-0-3-0 grunt-contrib-concat@~0.3.0
+51 verbose lock grunt-contrib-concat@~0.3.0 /Users/bharatpatil/.npm/0e44e68e-grunt-contrib-concat-0-3-0.lock
+52 verbose cache add name="grunt-contrib-uglify" spec="~0.2.0" args=["grunt-contrib-uglify","~0.2.0"]
+53 verbose parsed url { protocol: null,
+53 verbose parsed url   slashes: null,
+53 verbose parsed url   auth: null,
+53 verbose parsed url   host: null,
+53 verbose parsed url   port: null,
+53 verbose parsed url   hostname: null,
+53 verbose parsed url   hash: null,
+53 verbose parsed url   search: null,
+53 verbose parsed url   query: null,
+53 verbose parsed url   pathname: '~0.2.0',
+53 verbose parsed url   path: '~0.2.0',
+53 verbose parsed url   href: '~0.2.0' }
+54 verbose addNamed [ 'grunt-contrib-uglify', '~0.2.0' ]
+55 verbose addNamed [ null, '>=0.2.0-0 <0.3.0-0' ]
+56 silly lockFile 2cc6dac2-grunt-contrib-uglify-0-2-0 grunt-contrib-uglify@~0.2.0
+57 verbose lock grunt-contrib-uglify@~0.2.0 /Users/bharatpatil/.npm/2cc6dac2-grunt-contrib-uglify-0-2-0.lock
+58 verbose cache add name="grunt-contrib-coffee" spec="~0.7.0" args=["grunt-contrib-coffee","~0.7.0"]
+59 verbose parsed url { protocol: null,
+59 verbose parsed url   slashes: null,
+59 verbose parsed url   auth: null,
+59 verbose parsed url   host: null,
+59 verbose parsed url   port: null,
+59 verbose parsed url   hostname: null,
+59 verbose parsed url   hash: null,
+59 verbose parsed url   search: null,
+59 verbose parsed url   query: null,
+59 verbose parsed url   pathname: '~0.7.0',
+59 verbose parsed url   path: '~0.7.0',
+59 verbose parsed url   href: '~0.7.0' }
+60 verbose addNamed [ 'grunt-contrib-coffee', '~0.7.0' ]
+61 verbose addNamed [ null, '>=0.7.0-0 <0.8.0-0' ]
+62 silly lockFile 2d9311bb-grunt-contrib-coffee-0-7-0 grunt-contrib-coffee@~0.7.0
+63 verbose lock grunt-contrib-coffee@~0.7.0 /Users/bharatpatil/.npm/2d9311bb-grunt-contrib-coffee-0-7-0.lock
+64 silly addNameRange { name: 'grunt-contrib-jshint',
+64 silly addNameRange   range: '>=0.4.3-0 <0.5.0-0',
+64 silly addNameRange   hasData: false }
+65 silly addNameRange { name: 'grunt-cli',
+65 silly addNameRange   range: '>=0.1.7-0 <0.2.0-0',
+65 silly addNameRange   hasData: false }
+66 silly addNameRange { name: 'grunt-contrib-concat',
+66 silly addNameRange   range: '>=0.3.0-0 <0.4.0-0',
+66 silly addNameRange   hasData: false }
+67 silly addNameRange { name: 'grunt', range: '>=0.4.1-0 <0.5.0-0', hasData: false }
+68 silly addNameRange { name: 'grunt-contrib-uglify',
+68 silly addNameRange   range: '>=0.2.0-0 <0.3.0-0',
+68 silly addNameRange   hasData: false }
+69 verbose request where is /grunt-contrib-jshint
+70 verbose request registry https://registry.npmjs.org/
+71 verbose request id 923fa9c8998ad1e6
+72 verbose url raw /grunt-contrib-jshint
+73 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-contrib-jshint' ]
+74 verbose url resolved https://registry.npmjs.org/grunt-contrib-jshint
+75 verbose request where is https://registry.npmjs.org/grunt-contrib-jshint
+76 info trying registry request attempt 1 at 15:54:51
+77 http GET https://registry.npmjs.org/grunt-contrib-jshint
+78 verbose request where is /grunt-cli
+79 verbose request registry https://registry.npmjs.org/
+80 verbose url raw /grunt-cli
+81 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-cli' ]
+82 verbose url resolved https://registry.npmjs.org/grunt-cli
+83 verbose request where is https://registry.npmjs.org/grunt-cli
+84 info trying registry request attempt 1 at 15:54:51
+85 http GET https://registry.npmjs.org/grunt-cli
+86 verbose request where is /grunt-contrib-concat
+87 verbose request registry https://registry.npmjs.org/
+88 verbose url raw /grunt-contrib-concat
+89 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-contrib-concat' ]
+90 verbose url resolved https://registry.npmjs.org/grunt-contrib-concat
+91 verbose request where is https://registry.npmjs.org/grunt-contrib-concat
+92 info trying registry request attempt 1 at 15:54:51
+93 http GET https://registry.npmjs.org/grunt-contrib-concat
+94 verbose request where is /grunt
+95 verbose request registry https://registry.npmjs.org/
+96 verbose url raw /grunt
+97 verbose url resolving [ 'https://registry.npmjs.org/', './grunt' ]
+98 verbose url resolved https://registry.npmjs.org/grunt
+99 verbose request where is https://registry.npmjs.org/grunt
+100 info trying registry request attempt 1 at 15:54:51
+101 http GET https://registry.npmjs.org/grunt
+102 silly addNameRange { name: 'grunt-contrib-coffee',
+102 silly addNameRange   range: '>=0.7.0-0 <0.8.0-0',
+102 silly addNameRange   hasData: false }
+103 verbose request where is /grunt-contrib-uglify
+104 verbose request registry https://registry.npmjs.org/
+105 verbose url raw /grunt-contrib-uglify
+106 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-contrib-uglify' ]
+107 verbose url resolved https://registry.npmjs.org/grunt-contrib-uglify
+108 verbose request where is https://registry.npmjs.org/grunt-contrib-uglify
+109 info trying registry request attempt 1 at 15:54:51
+110 http GET https://registry.npmjs.org/grunt-contrib-uglify
+111 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+112 verbose request where is /grunt-contrib-coffee
+113 verbose request registry https://registry.npmjs.org/
+114 verbose url raw /grunt-contrib-coffee
+115 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-contrib-coffee' ]
+116 verbose url resolved https://registry.npmjs.org/grunt-contrib-coffee
+117 verbose request where is https://registry.npmjs.org/grunt-contrib-coffee
+118 info trying registry request attempt 1 at 15:55:21
+119 http GET https://registry.npmjs.org/grunt-contrib-coffee
+120 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+121 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+122 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+123 info trying registry request attempt 2 at 15:55:31
+124 http GET https://registry.npmjs.org/grunt-contrib-jshint
+125 info trying registry request attempt 2 at 15:55:31
+126 http GET https://registry.npmjs.org/grunt-cli
+127 info trying registry request attempt 2 at 15:55:31
+128 http GET https://registry.npmjs.org/grunt-contrib-concat
+129 info trying registry request attempt 2 at 15:55:31
+130 http GET https://registry.npmjs.org/grunt
+131 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+132 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+133 info trying registry request attempt 2 at 15:56:01
+134 http GET https://registry.npmjs.org/grunt-contrib-uglify
+135 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+136 info trying registry request attempt 2 at 15:56:01
+137 http GET https://registry.npmjs.org/grunt-contrib-coffee
+138 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+139 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+140 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+141 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+142 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+143 info trying registry request attempt 3 at 15:57:01
+144 http GET https://registry.npmjs.org/grunt-contrib-jshint
+145 info trying registry request attempt 3 at 15:57:01
+146 http GET https://registry.npmjs.org/grunt-cli
+147 info trying registry request attempt 3 at 15:57:21
+148 http GET https://registry.npmjs.org/grunt-contrib-concat
+149 info trying registry request attempt 3 at 15:57:21
+150 http GET https://registry.npmjs.org/grunt
+151 info trying registry request attempt 3 at 15:57:31
+152 http GET https://registry.npmjs.org/grunt-contrib-uglify
+153 silly lockFile e22b9980-grunt-contrib-jshint-0-4-3 grunt-contrib-jshint@~0.4.3
+154 silly lockFile e22b9980-grunt-contrib-jshint-0-4-3 grunt-contrib-jshint@~0.4.3
+155 silly lockFile 89325b95-grunt-cli-0-1-7 grunt-cli@~0.1.7
+156 silly lockFile 89325b95-grunt-cli-0-1-7 grunt-cli@~0.1.7
+157 info trying registry request attempt 3 at 15:57:32
+158 http GET https://registry.npmjs.org/grunt-contrib-coffee
+159 silly lockFile 0e44e68e-grunt-contrib-concat-0-3-0 grunt-contrib-concat@~0.3.0
+160 silly lockFile 0e44e68e-grunt-contrib-concat-0-3-0 grunt-contrib-concat@~0.3.0
+161 silly lockFile 766a3bd3-grunt-0-4-1 grunt@~0.4.1
+162 silly lockFile 766a3bd3-grunt-0-4-1 grunt@~0.4.1
+163 silly lockFile 2cc6dac2-grunt-contrib-uglify-0-2-0 grunt-contrib-uglify@~0.2.0
+164 silly lockFile 2cc6dac2-grunt-contrib-uglify-0-2-0 grunt-contrib-uglify@~0.2.0
+165 silly lockFile 2d9311bb-grunt-contrib-coffee-0-7-0 grunt-contrib-coffee@~0.7.0
+166 silly lockFile 2d9311bb-grunt-contrib-coffee-0-7-0 grunt-contrib-coffee@~0.7.0
+167 error network getaddrinfo ENOTFOUND
+167 error network This is most likely not a problem with npm itself
+167 error network and is related to network connectivity.
+167 error network In most cases you are behind a proxy or have bad network settings.
+167 error network
+167 error network If you are behind a proxy, please make sure that the
+167 error network 'proxy' config is set properly.  See: 'npm help config'
+168 error System Darwin 14.0.0
+169 error command "node" "/usr/local/bin/npm" "install"
+170 error cwd /Volumes/Data/rnd/patternlock/jquery-boilerplate
+171 error node -v v0.10.32
+172 error npm -v 1.4.28
+173 error syscall getaddrinfo
+174 error code ENOTFOUND
+175 error errno ENOTFOUND
+176 verbose exit [ 1, true ]

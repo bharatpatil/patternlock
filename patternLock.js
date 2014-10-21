@@ -71,6 +71,10 @@
             canvasContext = canvas.getContext('2d');
         }
 
+        function isInsideCircle(x, y, r, left, top) {
+            return Math.sqrt(Math.pow(left - x, 2) + Math.pow(top - y, 2)) <= r;
+        }
+
         function SimpleCircle(x, y, r) {
             this.centerX = x;
             this.centerY = y;
@@ -89,10 +93,11 @@
         function isMouseOverLockHoles(element, left, top) {
             var offset = element.offset();
             if (opts.isCircle === true) {
-                var radius = element.width() / 2,
-                    circle = new SimpleCircle(offset.left + radius, offset.top + radius, radius);
+                var radius = element.width() / 2;
+                    // circle = new SimpleCircle(offset.left + radius, offset.top + radius, radius);
                 //TO-DO: are we going to support only circle of square as well
-                return circle.includesXY(left, top);
+                return isInsideCircle(offset.left + radius, offset.top + radius, radius, left, top);
+                // return circle.includesXY(left, top);
             }
             return top >= offset.top && left >= offset.left && left <= (offset.left + element[0].offsetWidth) && top <= (offset.top + element[0].offsetHeight);
         }
