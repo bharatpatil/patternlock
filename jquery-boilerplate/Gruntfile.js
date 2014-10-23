@@ -20,8 +20,8 @@ module.exports = function(grunt) {
 		// Concat definitions
 		concat: {
 			dist: {
-				src: ["src/jquery.boilerplate.js"],
-				dest: "dist/jquery.boilerplate.js"
+				src: ["src/jquery.patternlock.js"],
+				dest: "dist/jquery.patternlock.js"
 			},
 			options: {
 				banner: "<%= meta.banner %>"
@@ -39,8 +39,8 @@ module.exports = function(grunt) {
 		// Minify definitions
 		uglify: {
 			my_target: {
-				src: ["dist/jquery.boilerplate.js"],
-				dest: "dist/jquery.boilerplate.min.js"
+				src: ["dist/jquery.patternlock.js"],
+				dest: "dist/jquery.patternlock.min.js"
 			},
 			options: {
 				banner: "<%= meta.banner %>"

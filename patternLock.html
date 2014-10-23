@@ -11,11 +11,13 @@
         <!--<script src="patternLock.js"></script>-->
         <script>
             $(document).ready(function(){
-            $("#mydiv, #mydiv1").patternLock({ patternLineColor: '#f00',showPatterLine:false,fieldName: 'pattern',valueSeparator:'-',valueArray:[9,8,7,6,5,4,3,2,1],centerCircle:true,centerCircleSize:15, showPatternLine: true, lineWidth: 4 
+            $("#mydiv").patternLock({ patternLineColor: '#f00',showPatterLine:false,fieldName: 'pattern',valueSeparator:'-',valueArray:[9,8,7,6,5,4,3,2,1],centerCircle:true,centerCircleSize:15, showPatternLine: true, lineWidth: 4 
                 ,drawEnd: function(data) {
                     console.log(data);
                 }
                 });
+
+            $('#mydiv1').patternLock();
             });
         </script>
     </head>

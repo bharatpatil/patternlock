@@ -1,15 +1,14 @@
 /*
- *  jQuery Boilerplate - v3.3.1
- *  A jump-start for jQuery plugins development.
- *  http://jqueryboilerplate.com
+ *  Pattern Lock - v1.0.0
+ *  Android like pattern lock for web with touch event support
+ *  
  *
- *  Made by Zeno Rocha
- *  Under MIT License
+ *  Made by Bharat Patil
+ *  Under CustomLicense License
  */
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
-;
-(function($, window, document, undefined) {
+;(function($, window, document, undefined) {
     // undefined is used here as the undefined global variable in ECMAScript 3 is
     // mutable (ie. it can be changed by someone else). undefined isn't really being
     // passed in so we can ensure the value of it is truly undefined. In ES5, undefined
@@ -271,7 +270,7 @@
                 if (this.options.fieldName != undefined && this.options.fieldName !== '' && this.options.fieldName != null) {
                     $('input[type=hidden][name=' + this.options.fieldName + ']').val(patternValue);
                 }
-                if (this.options.drawEnd) {
+                if (this.options.drawEnd && $.isFunction(this.options.drawEnd)) {
                     this.options.drawEnd.call(null, patternValue);
                 }
             }
