@@ -35,14 +35,13 @@
         i, j, idCounter, _that, context;
     // The actual plugin constructor
     function Plugin(element, options) {
-        _that = this;
         this.element = element;
         this.started = false,
         this.nums = [],
         this.arrCoordinates = [],
         this.patternClearTimeout = null,
-        this.canvas = null, 
-        this.canvasContext = null, 
+        this.canvas = null,
+        this.canvasContext = null,
         // jQuery has an extend method which merges the contents of two or
         // more objects, storing the result in the first object. The first object
         // is generally empty as we don't want to alter the default options for
@@ -52,8 +51,10 @@
         this._name = pluginName;
         this.init();
     }
+
     Plugin.prototype = {
         init: function() {
+            var _that = this;
             // Place initialization logic here
             // You already have access to the DOM element and
             // the options via the instance, e.g. this.element
@@ -78,9 +79,9 @@
             for (i = 1; i <= this.options.rows; i++) {
                 content = content + "<tr>";
                 for (j = 1; j <= this.options.columns; j++) {
-                    content = content + '<td data-value="' + this.options.valueArray[idCounter++] + '">';
+                    content = content + '<td class="lockTd cell-' + this.options.valueArray[idCounter] + '" data-value="' + this.options.valueArray[idCounter] + '">';
                     if (this.options.centerCircle) {
-                        content = content + '<div class="centerCircle" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px">&nbsp;</div>';
+                        content = content + '<div class="centerCircle cir-' + this.options.valueArray[idCounter++] + '" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px">&nbsp;</div>';
                     }
                     content = content + '</td>';
                 }
@@ -94,51 +95,112 @@
                 _that.canvas.height = this.options.width;
                 _that.canvasContext = _that.canvas.getContext('2d');
             }
-            $('.tbl').on('vmousemove', function(evt) {
+            this.bindEvents();
+        },
+        bindEvents: function() {
+            var _that = this;
+            $('td.lockTd', this.element).bind('mouseenter', function(evt) {
                 evt.preventDefault();
-                context = $(this);
-                $('td', context).each(function() {
-                    if (_that.isMouseOverLockHoles($(this), evt.pageX, evt.pageY)) {
-                        var num = $(this).attr('data-value'),
-                            lastNum = _that.nums[_that.nums.length - 1];
-                        if (_that.started === true && lastNum !== num) {
-                            _that.arrCoordinates.push(_that.getCenter(this));
-                            _that.drawLine();
-                            $(this).addClass('selected');
-                            _that.nums.push($(this).attr('data-value'));
-                        }
-                    }
-                });
+                _that.lockMoveMouse(this);
             });
-            $('.tbl').on('vmouseup', function(evt) {
-                evt.preventDefault();
-                _that.pattenDrawEnd();
-            });
-            $(document).on('vmouseup', function() {
-                _that.pattenDrawEnd();
-            });
-            $('.tbl').on('vmousedown', function(evt) {
+            $('td.lockTd', this.element).bind('mousedown', function(evt) {
                 if (_that.patternClearTimeout) {
                     clearTimeout(_that.patternClearTimeout);
+                    _that.clearSelection();
                 }
+                _that.lockStartMouse($(this));
+            });
+
+            $('.tbl', this.element).bind('touchmove', function(evt) {
                 evt.preventDefault();
                 context = $(this);
-                $('td', context).each(function() {
-                    if (_that.isMouseOverLockHoles($(this), evt.pageX, evt.pageY)) {
-                        _that.started = true;
-                        _that.nums = [];
-                        _that.arrCoordinates = [];
-                        $('td', context).removeClass('selected');
-                        _that.clearCanvas();
-                        $(this).addClass('selected');
-                        _that.nums.push($(this).attr('data-value'));
-                        _that.arrCoordinates.push(_that.getCenter(this));
-                    }
-                });
+                var touch = evt.originalEvent.touches[0] || evt.originalEvent.changedTouches[0],
+                    xpos = touch.pageX,
+                    ypos = touch.pageY;
+                _that.lockMoveTouch(context, xpos, ypos);
+            });
+            $('.tbl', this.element).bind('touchstart', function(evt) {
+                if (_that.patternClearTimeout) {
+                    clearTimeout(_that.patternClearTimeout);
+                    _that.clearSelection();
+                }
+
+                var touch = evt.originalEvent.touches[0] || evt.originalEvent.changedTouches[0],
+                    xpos = touch.pageX,
+                    ypos = touch.pageY;
+                evt.preventDefault();
+                context = $(this);
+                _that.lockStartTouch(context, xpos, ypos);
+            });
+
+            $('.tbl', this.element).bind('mouseup touchend', function(evt) {
+                evt.preventDefault();
+                _that.pattenDrawEnd();
+            });
+            $(document).bind('mouseup touchend', function() {
+                _that.pattenDrawEnd();
             });
         },
-        yourOtherFunction: function() {
-            // some logic
+        lockStartMouse: function(thatTd) {
+            this.started = true;
+            this.nums = [];
+            this.arrCoordinates = [];
+            $(thatTd).removeClass('selected');
+            this.clearCanvas();
+            $(thatTd).addClass('selected');
+            this.nums.push($(thatTd).attr('data-value'));
+            this.arrCoordinates.push(this.getCenter(thatTd));
+        },
+        lockMoveMouse: function(thatTd) {
+            var num = $(thatTd).attr('data-value'),
+                lastNum = this.nums[this.nums.length - 1];
+            if (this.started === true && lastNum !== num) {
+                this.arrCoordinates.push(this.getCenter(thatTd));
+                this.drawLine();
+                $(thatTd).addClass('selected');
+                this.nums.push($(thatTd).attr('data-value'));
+            }
+        },
+
+        lockStartTouch: function(context, xpos, ypos) {
+
+            var element = null,
+                _that = this;
+            $('td.lockTd', context).each(function() {
+                if (_that.isMouseOverLockHoles($(this), xpos, ypos)) {
+                    element = $(this);
+                    _that.started = true;
+                    _that.nums = [];
+                    _that.arrCoordinates = [];
+                    _that.clearCanvas();
+                    $(element).addClass('selected');
+                    _that.nums.push($(element).attr('data-value'));
+                    _that.arrCoordinates.push(_that.getCenter(element));
+                    return;
+                }
+            });
+
+
+        },
+
+        lockMoveTouch: function(context, xpos, ypos) {
+            var element = null,
+                _that = this;
+
+            $('td.lockTd', context).each(function() {
+                if (_that.isMouseOverLockHoles($(this), xpos, ypos)) {
+                    element = $(this);
+                    var num = $(element).attr('data-value'),
+                        lastNum = _that.nums[_that.nums.length - 1];
+                    if (_that.started === true && lastNum !== num) {
+                        _that.arrCoordinates.push(_that.getCenter(element));
+                        _that.drawLine();
+                        $(element).addClass('selected');
+                        _that.nums.push($(element).attr('data-value'));
+                    }
+                    return;
+                }
+            });
         },
         isInsideCircle: function(x, y, r, left, top) {
             return Math.sqrt(Math.pow(left - x, 2) + Math.pow(top - y, 2)) <= r;
@@ -147,14 +209,14 @@
             if (isCanvas === false || this.options.showPatternLine === false) {
                 return;
             }
-            var offset = $(ele).offset(),
+            var offset = $(ele).position(),
                 width = $(ele).outerWidth(),
                 height = $(ele).outerHeight(),
                 centerX = offset.left + width / 2,
                 centerY = offset.top + height / 2,
-                rect = _that.canvas.getBoundingClientRect();
-            centerX = centerX - rect.left;
-            centerY = centerY - rect.top;
+                rect = this.canvas.getBoundingClientRect();
+            // centerX = centerX - rect.left;
+            // centerY = centerY - rect.top;
             return {
                 'x': centerX,
                 'y': centerY
@@ -164,40 +226,51 @@
             if (isCanvas === false || this.options.showPatternLine === false) {
                 return;
             }
-            _that.canvasContext.clearRect(0, 0, _that.canvas.width, _that.canvas.height);
-            var w = _that.canvas.width;
-            _that.canvas.width = 1;
-            _that.canvas.width = w;
+            this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            var w = this.canvas.width;
+            this.canvas.width = 1;
+            this.canvas.width = w;
         },
         drawLine: function() {
-            if (isCanvas === false || this.options.showPatternLine === false || _that.arrCoordinates.length < 2) {
+            if (isCanvas === false || this.options.showPatternLine === false || this.arrCoordinates.length < 2) {
                 return;
             }
-            var c = _that.arrCoordinates;
+            var c = this.arrCoordinates;
             i = c.length - 1;
-            _that.canvasContext.lineWidth = this.options.lineWidth;
-            _that.canvasContext.beginPath();
-            _that.canvasContext.moveTo(c[i - 1].x, c[i - 1].y);
-            _that.canvasContext.lineTo(c[i].x, c[i].y);
-            _that.canvasContext.strokeStyle = this.options.patternLineColor;
-            _that.canvasContext.stroke();
-            _that.canvasContext.closePath();
+            this.canvasContext.lineWidth = this.options.lineWidth;
+            this.canvasContext.beginPath();
+            this.canvasContext.moveTo(c[i - 1].x, c[i - 1].y);
+
+            this.canvasContext.lineTo(c[i].x, c[i].y);
+
+            this.canvasContext.strokeStyle = this.options.patternLineColor;
+            this.canvasContext.stroke();
+            this.canvasContext.closePath();
         },
         pattenDrawEnd: function() {
-            if (_that.started === true) {
-                $('#pattern').text(_that.nums.join(','));
+            if (this.started === true) {
+                this.started = false;
+                if (this.patternClearTimeout) {
+                    clearTimeout(this.patternClearTimeout);
+                }
+                var _that = this;
+                this.patternClearTimeout = setTimeout(function() {
+                    _that.clearSelection();
+                }, 500);
+
+
+                var patternValue = this.nums.join(this.options.valueSeparator);
                 if (this.options.fieldName != undefined && this.options.fieldName !== '' && this.options.fieldName != null) {
-                    $('input[type=hidden][name=' + this.options.fieldName + ']').val(_that.nums.join(this.options.valueSeparator));
+                    $('input[type=hidden][name=' + this.options.fieldName + ']').val(patternValue);
                 }
-                _that.started = false;
-                if (_that.patternClearTimeout) {
-                    clearTimeout(_that.patternClearTimeout);
+                if (this.options.drawEnd) {
+                    this.options.drawEnd.call(null, patternValue);
                 }
-                _that.patternClearTimeout = setTimeout(function() {
-                    $('.tbl td').removeClass('selected');
-                    _that.clearCanvas();
-                }, 1000);
             }
+        },
+        clearSelection: function() {
+            $('.tbl td', this.element).removeClass('selected');
+            this.clearCanvas();
         },
         isMouseOverLockHoles: function(element, left, top) {
             var offset = element.offset();

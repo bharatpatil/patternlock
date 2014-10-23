@@ -54,14 +54,25 @@ module.exports = function(grunt) {
 					"dist/jquery.boilerplate.js": "src/jquery.boilerplate.coffee"
 				}
 			}
-		}
+		},
 
+
+		watch: {
+		  scripts: {
+		    files: ['src/*.js'],
+		    tasks: ['concat', 'uglify'],
+		    options: {
+		      spawn: false,
+		    },
+		  },
+		}
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-concat");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-coffee");
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask("default", ["jshint", "concat", "uglify"]);
 	grunt.registerTask("travis", ["jshint"]);
