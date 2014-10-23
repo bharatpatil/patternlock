@@ -15,8 +15,8 @@
             columns: 3,
             width: 250,
             height: 250,
-            randomizeIds: false, // this should be used to randomizeId of td
-            isCircle: true, // this will be required to identify if holes are of shape circle or square
+            randomizeIds: false, // this should be used to randomizeId of td //todo
+            isCircle: true, // this will be required to identify if holes are of shape circle or square // todo
             showPatternLine: true,
             patternLineColor: '#000000',
             fieldName: '',
