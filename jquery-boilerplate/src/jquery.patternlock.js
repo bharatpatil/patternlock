@@ -24,23 +24,28 @@
             valueArray: [],
             centerCircle: false,
             lineWidth: 4,
-            centerCircleSize: 10
+            centerCircleSize: 10,
+            drawEnd: null,
+            selectionColor: '#0000ff'
         },
         isCanvas = (function() {
             //function taken from http://stackoverflow.com/questions/2745432/best-way-to-detect-that-html5-canvas-is-not-supported
             var elem = document.createElement('canvas');
             return !!(elem.getContext && elem.getContext('2d'));
         }()),
-        i, j, idCounter, _that, context;
+        cssstyle = '<style id="patternLockStyylee">.patternlock{border:1px solid #000}.patternlock,.patternlock *{-webkit-touch-callout:none;touch-callout:none;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}.patternlock .insideWrapper{position:relative;height:100%;width:100%}.patternlock .insideWrapper .tbl,.patternlock .insideWrapper canvas{width:100%;height:100%;position:absolute;top:0;left:0}.patternlock .insideWrapper .tbl{border-collapse:separate;border-spacing:25px}.patternlock .tbl td{border:1px solid #000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;text-align:center}.patternlock .centerCircle{border:1px solid red;margin:auto;border-radius:50%;background-color:#ff0}</style>',
+        i, j, idCounter, _that, context, len;
     // The actual plugin constructor
     function Plugin(element, options) {
         this.element = element;
-        this.started = false,
-        this.nums = [],
-        this.arrCoordinates = [],
-        this.patternClearTimeout = null,
-        this.canvas = null,
-        this.canvasContext = null,
+        this.started = false;
+        this.nums = [];
+        this.arrCoordinates = [];
+        this.patternClearTimeout = null;
+        this.canvas = null;
+        this.canvasContext = null;
+        this.selectionClass = 'myselectionClass'+(new Date().getTime());
+        this.selectionClassStyle = '.'+this.selectionClass;
         // jQuery has an extend method which merges the contents of two or
         // more objects, storing the result in the first object. The first object
         // is generally empty as we don't want to alter the default options for
@@ -53,6 +58,11 @@
 
     Plugin.prototype = {
         init: function() {
+            if($('#patternLockStyylee').length === 0) {
+                $(cssstyle).appendTo('head');
+            }
+            this.selectionClassStyle += '{ background-color: '+this.options.selectionColor+' }';
+            $('#patternLockStyylee').append(this.selectionClassStyle);
             var _that = this;
             // Place initialization logic here
             // You already have access to the DOM element and
@@ -62,9 +72,10 @@
             // call them like so: this.yourOtherFunction(this.element, this.options).
             //Initializing value array
             if (this.options.valueArray.length === 0 || this.options.valueArray.length !== this.options.rows * this.options.columns) {
-                for (i = 0; i < (this.options.rows * this.options.columns); i++) {
+                for (i = 0, len = (this.options.rows * this.options.columns); i < len; i++) {
                     this.options.valueArray[i] = i + 1;
                 }
+
             }
             var content = '<div class="patternlock" style="width:' + this.options.width + 'px;height:' + this.options.height + 'px"><div class="insideWrapper">';
             if (this.options.fieldName != undefined && this.options.fieldName !== '' && this.options.fieldName != null) {
@@ -80,8 +91,9 @@
                 for (j = 1; j <= this.options.columns; j++) {
                     content = content + '<td class="lockTd cell-' + this.options.valueArray[idCounter] + '" data-value="' + this.options.valueArray[idCounter] + '">';
                     if (this.options.centerCircle) {
-                        content = content + '<div class="centerCircle cir-' + this.options.valueArray[idCounter++] + '" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px">&nbsp;</div>';
+                        content = content + '<div class="centerCircle cir-' + this.options.valueArray[idCounter] + '" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px">&nbsp;</div>';
                     }
+                    idCounter++;
                     content = content + '</td>';
                 }
                 content = content + "</tr>";
@@ -144,9 +156,9 @@
             this.started = true;
             this.nums = [];
             this.arrCoordinates = [];
-            $(thatTd).removeClass('selected');
+            $(thatTd).removeClass('selected ' + this.selectionClass);
             this.clearCanvas();
-            $(thatTd).addClass('selected');
+            $(thatTd).addClass('selected ' + this.selectionClass);
             this.nums.push($(thatTd).attr('data-value'));
             this.arrCoordinates.push(this.getCenter(thatTd));
         },
@@ -156,7 +168,7 @@
             if (this.started === true && lastNum !== num) {
                 this.arrCoordinates.push(this.getCenter(thatTd));
                 this.drawLine();
-                $(thatTd).addClass('selected');
+                $(thatTd).addClass('selected ' + this.selectionClass);
                 this.nums.push($(thatTd).attr('data-value'));
             }
         },
@@ -172,7 +184,7 @@
                     _that.nums = [];
                     _that.arrCoordinates = [];
                     _that.clearCanvas();
-                    $(element).addClass('selected');
+                    $(element).addClass('selected ' + _that.selectionClass);
                     _that.nums.push($(element).attr('data-value'));
                     _that.arrCoordinates.push(_that.getCenter(element));
                     return;
@@ -194,7 +206,7 @@
                     if (_that.started === true && lastNum !== num) {
                         _that.arrCoordinates.push(_that.getCenter(element));
                         _that.drawLine();
-                        $(element).addClass('selected');
+                        $(element).addClass('selected ' + _that.selectionClass);
                         _that.nums.push($(element).attr('data-value'));
                     }
                     return;
@@ -268,7 +280,7 @@
             }
         },
         clearSelection: function() {
-            $('.tbl td', this.element).removeClass('selected');
+            $('.tbl td', this.element).removeClass('selected ' + this.selectionClass);
             this.clearCanvas();
         },
         isMouseOverLockHoles: function(element, left, top) {
