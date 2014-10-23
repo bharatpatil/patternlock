@@ -35,12 +35,6 @@
     border-radius: 50%;
     text-align: center;    
 }
-.patternlock .tbl td.red {
-    background-color: red;
-}
-.patternlock .tbl td.selected {
-    background-color: blue;
-}
 .patternlock .centerCircle{
     border:1px solid red;
     margin:auto;
