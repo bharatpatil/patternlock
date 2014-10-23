@@ -34,7 +34,7 @@
             return !!(elem.getContext && elem.getContext('2d'));
         }()),
         cssstyle = '<style id="patternLockStyylee">.patternlock{border:1px solid #000}.patternlock,.patternlock *{-webkit-touch-callout:none;touch-callout:none;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}.patternlock .insideWrapper{position:relative;height:100%;width:100%}.patternlock .insideWrapper .tbl,.patternlock .insideWrapper canvas{width:100%;height:100%;position:absolute;top:0;left:0}.patternlock .insideWrapper .tbl{border-collapse:separate;border-spacing:25px}.patternlock .tbl td{border:1px solid #000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;text-align:center}.patternlock .centerCircle{border:1px solid red;margin:auto;border-radius:50%;background-color:#ff0}</style>',
-        i, j, idCounter, _that, context, len;
+        i, j, idCounter, context, len;
     // The actual plugin constructor
     function Plugin(element, options) {
         this.element = element;
@@ -44,8 +44,8 @@
         this.patternClearTimeout = null;
         this.canvas = null;
         this.canvasContext = null;
-        this.selectionClass = 'myselectionClass'+(new Date().getTime());
-        this.selectionClassStyle = '.'+this.selectionClass;
+        this.selectionClass = 'myselectionClass' + (new Date().getTime());
+        this.selectionClassStyle = '.' + this.selectionClass;
         // jQuery has an extend method which merges the contents of two or
         // more objects, storing the result in the first object. The first object
         // is generally empty as we don't want to alter the default options for
@@ -58,10 +58,10 @@
 
     Plugin.prototype = {
         init: function() {
-            if($('#patternLockStyylee').length === 0) {
+            if ($('#patternLockStyylee').length === 0) {
                 $(cssstyle).appendTo('head');
             }
-            this.selectionClassStyle += '{ background-color: '+this.options.selectionColor+' }';
+            this.selectionClassStyle += '{ background-color: ' + this.options.selectionColor + ' }';
             $('#patternLockStyylee').append(this.selectionClassStyle);
             var _that = this;
             // Place initialization logic here
@@ -78,7 +78,7 @@
 
             }
             var content = '<div class="patternlock" style="width:' + this.options.width + 'px;height:' + this.options.height + 'px"><div class="insideWrapper">';
-            if (this.options.fieldName != undefined && this.options.fieldName !== '' && this.options.fieldName != null) {
+            if ($.isEmptyObject(this.options.fieldName) === false) {
                 content += '<input type="hidden" name="' + this.options.fieldName + '">';
             }
             if (isCanvas === true && this.options.showPatternLine === true) {
@@ -114,12 +114,12 @@
                 evt.preventDefault();
                 _that.lockMoveMouse(this);
             });
-            $('td.lockTd', this.element).bind('mousedown', function(evt) {
+            $('td.lockTd', this.element).bind('mousedown', function() {
                 if (_that.patternClearTimeout) {
                     clearTimeout(_that.patternClearTimeout);
                     _that.clearSelection();
                 }
-                _that.lockStartMouse($(this));
+                _that.lockStartMouse(this);
             });
 
             $('.tbl', this.element).bind('touchmove', function(evt) {
@@ -224,10 +224,7 @@
                 width = $(ele).outerWidth(),
                 height = $(ele).outerHeight(),
                 centerX = offset.left + width / 2,
-                centerY = offset.top + height / 2,
-                rect = this.canvas.getBoundingClientRect();
-            // centerX = centerX - rect.left;
-            // centerY = centerY - rect.top;
+                centerY = offset.top + height / 2;
             return {
                 'x': centerX,
                 'y': centerY
@@ -271,7 +268,7 @@
 
 
                 var patternValue = this.nums.join(this.options.valueSeparator);
-                if (this.options.fieldName != undefined && this.options.fieldName !== '' && this.options.fieldName != null) {
+                if ($.isEmptyObject(this.options.fieldName) === false) {
                     $('input[type=hidden][name=' + this.options.fieldName + ']').val(patternValue);
                 }
                 if (this.options.drawEnd && $.isFunction(this.options.drawEnd)) {
