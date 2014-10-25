@@ -7,8 +7,8 @@ Include jquery and provided javascript file inside your html file.
 
 Simple Use
 ----------
-	<script type="text/javascript">
-		<div id="mypatternlock"></div>
+	<div id="mypatternlock"></div>
+	<script type="text/javascript">	
 		(document).ready(function(){
 			$('#mypatternlock').patternLock();
 		});
