@@ -27,7 +27,8 @@
             lineWidth: 4,
             centerCircleSize: 10,
             drawEnd: null,
-            selectionColor: '#0000ff'
+            selectionColor: '#0000ff',
+            timeout: 500
         },
         isCanvas = (function() {
             //function taken from http://stackoverflow.com/questions/2745432/best-way-to-detect-that-html5-canvas-is-not-supported
@@ -265,7 +266,7 @@
                 var _that = this;
                 this.patternClearTimeout = setTimeout(function() {
                     _that.clearSelection();
-                }, 500);
+                }, _that.options.timeout);
 
 
                 var patternValue = this.nums.join(this.options.valueSeparator);
