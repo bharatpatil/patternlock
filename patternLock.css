@@ -11,6 +11,7 @@
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    cursor: pointer;
 }
 .patternlock .insideWrapper {
     position: relative;
@@ -34,6 +35,7 @@
     -moz-border-radius: 50%;
     border-radius: 50%;
     text-align: center;    
+    cursor: pointer;
 }
 .patternlock .centerCircle{
     border:1px solid red;
