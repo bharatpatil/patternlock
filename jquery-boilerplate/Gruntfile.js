@@ -65,7 +65,11 @@ module.exports = function(grunt) {
 		      spawn: false,
 		    },
 		  },
-		}
+		},
+
+		qunit: {
+      		all: ['tests/*.html']
+    	}
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-concat");
@@ -73,8 +77,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-coffee");
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
 
 	grunt.registerTask("default", ["jshint", "concat", "uglify"]);
 	grunt.registerTask("travis", ["jshint"]);
+	grunt.registerTask('test', ['qunit']);
 
 };
