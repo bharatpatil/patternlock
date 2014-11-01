@@ -96,6 +96,7 @@ function testOptionGroup2(option,cells) {
 
 test('Testing if proper pattern generated based on mouse/touch movement,valueSeparator,valueArray', function() {
   expect(1);
+
   $("#qunit-fixture").patternLock(option);
   // extending option 
   option = $.extend({}, testDefaults, option);
@@ -108,11 +109,11 @@ test('Testing if proper pattern generated based on mouse/touch movement,valueSep
   var patternExpected = [];
 
   //Simulation tap and move
-  $("table  tr:nth("+cells[0].r+")  td:nth("+cells[0].c+")").mousedown();
+  $("table  tr:nth("+cells[0].r+")  td:nth("+cells[0].c+")").trigger('mousedown');
   patternExpected.push(option.valueArray[cells[0].r*3+cells[0].c]);
 
   for(var i=1;i < (cells.length);i++){
-    $("table  tr:nth("+cells[i].r+")  td:nth("+cells[i].c+")").mouseenter().mouseleave();
+    $("table  tr:nth("+cells[i].r+")  td:nth("+cells[i].c+")").trigger('mouseenter').trigger('mouseleave');
     patternExpected.push(option.valueArray[cells[i].r*option.rows+cells[i].c]);
   }
 
@@ -121,7 +122,15 @@ test('Testing if proper pattern generated based on mouse/touch movement,valueSep
 
 
   equal($(fixture).find("input[type=hidden]").val(), patternExpected.join(option.valueSeparator), 'Matching generated pattern :: Expected pattern '+patternExpected.join(option.valueSeparator));
-  $("#qunit-fixture").patternLock('destroy');
+  var htmltoAppend = $('#qunit-fixture').html();
+  $('#my-fixture').append(htmltoAppend);
+  var oldCanvas = $('#qunit-fixture').find('canvas')[0],
+      oldContext = oldCanvas.getContext('2d'),
+      newCanvas = $('#my-fixture canvas:last')[0],
+      newContext = newCanvas.getContext('2d');
+      
+      newContext.putImageData(oldContext.getImageData(0, 0, oldCanvas.width, oldCanvas.height), 0, 0);
+      $("#qunit-fixture").patternLock('destroy');
 });
 
 }
