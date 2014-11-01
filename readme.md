@@ -37,4 +37,4 @@ You can use following options like shown below:
 | centerCircleSize | 20 | number | size of center circles in pixels |
 | drawEnd | null | function | callback function that will be called after pattern drawing is done and will be receive drawn pattern as argument |
 | timeout | 500 | number (milliseconds) | duration in milliseconds, to show drawn pattern for |
-| allowRepeatSelection | false | option to set whether or not allow repeated selection of lock holes. |
+| allowRepeatSelection | false | boolean | option to set whether or not allow repeated selection of lock holes. |
