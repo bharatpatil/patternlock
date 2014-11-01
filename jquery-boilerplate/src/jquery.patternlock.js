@@ -28,7 +28,8 @@
             centerCircleSize: 10,
             drawEnd: null,
             selectionColor: '#0000ff',
-            timeout: 500
+            timeout: 500,
+            allowRepeatSelection: false
         },
         isCanvas = (function() {
             //function taken from http://stackoverflow.com/questions/2745432/best-way-to-detect-that-html5-canvas-is-not-supported
@@ -167,7 +168,7 @@
         lockMoveMouse: function(thatTd) {
             var num = $(thatTd).attr('data-value'),
                 lastNum = this.nums[this.nums.length - 1];
-            if (this.started === true && lastNum !== num) {
+            if (this.started === true && lastNum !== num && (this.options.allowRepeatSelection || this.nums.indexOf(num) === -1)) {
                 this.arrCoordinates.push(this.getCenter(thatTd));
                 this.drawLine();
                 $(thatTd).addClass('selected ' + this.selectionClass);
@@ -205,7 +206,7 @@
                     element = $(this);
                     var num = $(element).attr('data-value'),
                         lastNum = _that.nums[_that.nums.length - 1];
-                    if (_that.started === true && lastNum !== num) {
+                    if (_that.started === true && lastNum !== num && (this.options.allowRepeatSelection || this.nums.indexOf(num) === -1)) {
                         _that.arrCoordinates.push(_that.getCenter(element));
                         _that.drawLine();
                         $(element).addClass('selected ' + _that.selectionClass);
