@@ -36,7 +36,7 @@
             var elem = document.createElement('canvas');
             return !!(elem.getContext && elem.getContext('2d'));
         }()),
-        cssstyle = '<style id="patternLockStyylee">.patternlock{border:1px solid #000}.patternlock,.patternlock *{cursor: default;-webkit-touch-callout:none;touch-callout:none;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}.patternlock .insideWrapper{position:relative;height:100%;width:100%}.patternlock .insideWrapper .tbl,.patternlock .insideWrapper canvas{width:100%;height:100%;position:absolute;top:0;left:0}.patternlock .insideWrapper .tbl{border-collapse:separate;border-spacing:25px}.patternlock .tbl td{cursor: pointer;border:1px solid #000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;text-align:center}.patternlock .centerCircle{cursor: pointer;border:1px solid red;margin:auto;border-radius:50%;background-color:#ff0}</style>',
+        cssstyle = '<style id="patternLockStyylee"></style>',
         i, j, idCounter, context, len;
     // The actual plugin constructor
     function Plugin(element, options) {
@@ -61,6 +61,7 @@
 
     Plugin.prototype = {
         init: function() {
+            isCanvas = true;
             if ($('#patternLockStyylee').length === 0) {
                 $(cssstyle).appendTo('head');
             }
@@ -86,7 +87,7 @@
             }
             if (isCanvas === true && this.options.showPatternLine === true) {
                 content += '<canvas class="patternLockCanvas" width="100%" height="100%;"></canvas>';
-            }
+            }                        
             content += '<table class="tbl tbl1" cellspacing="25px">';
             idCounter = 0;
             for (i = 1; i <= this.options.rows; i++) {
@@ -101,7 +102,8 @@
                 }
                 content = content + "</tr>";
             }
-            content = content + '</table></div></div>';
+            content = content + '</table>';
+            content = content + '</div></div>';
             $(this.element).append(content);
             if (isCanvas === true && this.options.showPatternLine === true) {
                 _that.canvas = $('.patternLockCanvas', this.element)[0];

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
         <title>Pattern Authenticator</title>
+        <link rel="stylesheet" type="text/css" href="patternLock.css" />
         <style type="text/css">
         .patternlock {
             border-radius: 10px;
@@ -23,7 +24,7 @@
                 },allowRepeatSelection:true
                 });
 
-            $('#mydiv1').patternLock( {centerCircle: true, selectionColor: 'red', timeout: 2000} );
+            $('#mydiv1').patternLock( {centerCircle: false, selectionColor: 'red', timeout: 4000} );
             });
         </script>
     </head>
