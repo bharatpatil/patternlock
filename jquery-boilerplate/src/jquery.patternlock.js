@@ -208,7 +208,7 @@
                     element = $(this);
                     var num = $(element).attr('data-value'),
                         lastNum = _that.nums[_that.nums.length - 1];
-                    if (_that.started === true && lastNum !== num && (this.options.allowRepeatSelection || this.nums.indexOf(num) === -1)) {
+                    if (_that.started === true && lastNum !== num && (_that.options.allowRepeatSelection || _that.nums.indexOf(num) === -1)) {
                         _that.arrCoordinates.push(_that.getCenter(element));
                         _that.drawLine();
                         $(element).addClass('selected ' + _that.selectionClass);
