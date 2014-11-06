@@ -65,7 +65,7 @@
             if ($('#patternLockStyylee').length === 0) {
                 $(cssstyle).appendTo('head');
             }
-            this.selectionClassStyle += '{ background-color: ' + this.options.selectionColor + ' }';
+            this.selectionClassStyle += '{ background-color: ' + this.options.selectionColor + ' !important; }';
             $('#patternLockStyylee').append(this.selectionClassStyle);
             var _that = this;
             // Place initialization logic here
@@ -95,7 +95,7 @@
                 for (j = 1; j <= this.options.columns; j++) {
                     content = content + '<td class="lockTd cell-' + this.options.valueArray[idCounter] + '" data-value="' + this.options.valueArray[idCounter] + '">';
                     if (this.options.centerCircle) {
-                        content = content + '<div class="centerCircle cir-' + this.options.valueArray[idCounter] + '" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px">&nbsp;</div>';
+                        content = content + '<div class="centerCircle cir-' + this.options.valueArray[idCounter] + '" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px"></div>';
                     }
                     idCounter++;
                     content = content + '</td>';
