@@ -105,6 +105,20 @@
             content = content + '</table>';
             content = content + '</div></div>';
             $(this.element).append(content);
+
+            /*** check if container is smaller than table ****/
+            var tableWidth = $('table.tbl', this.element).outerWidth(),
+                tableHeight = $('table.tbl', this.element).outerHeight(),
+                containerElement = $('.patternlock', this.element);
+            if(tableWidth > this.options.width) {
+                this.options.width = tableWidth;                              
+            }
+            if(tableHeight > this.options.height) {
+                this.options.height = tableHeight;
+            }
+            containerElement.css({ width: this.options.width, height: this.options.height });
+            /**** check if container is smaller than table *****/
+
             if (isCanvas === true && this.options.showPatternLine === true) {
                 _that.canvas = $('.patternLockCanvas', this.element)[0];
                 _that.canvas.width = this.options.width;
