@@ -1,0 +1,12 @@
+.patternlock {
+	box-shadow: inset 0px 0px 10px #aaa;
+}
+.patternlock .tbl td {
+	box-shadow: 4px 4px 4px #aaa;
+}
+.patternlock .tbl td:hover {
+	box-shadow: 4px 4px 4px #ccc;	
+}
+.patternlock .centerCircle{
+
+}

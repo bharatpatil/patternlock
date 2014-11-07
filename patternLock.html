@@ -6,25 +6,25 @@
         <meta charset="utf-8">
         <title>Pattern Authenticator</title>
         <link rel="stylesheet" type="text/css" href="patternLock.css" />
+        <link rel="stylesheet" type="text/css" href="patternLock-theme.css" />
         <style type="text/css">
-        .patternlock {
-            border-radius: 10px;
-        }
         </style>
         <script src="jquery-1.11.1.min.js"></script>
         <script src="jquery-boilerplate/dist/jquery.patternlock.js"></script>        
         <script>
             $(document).ready(function(){
-            $("#mydiv").patternLock({
-                rows: 4,
-                columns: 4,
+            $("#mydiv").patternLock({                
+                width: 240,
+                height: 300,
+                rows: 8,
+                columns: 9,
              patternLineColor: '#f00',showPatterLine:false,fieldName: 'pattern',valueSeparator:'-',valueArray:[9,8,7,6,5,4,3,2,1],centerCircle:true,centerCircleSize:15, showPatternLine: true, lineWidth: 4 
                 ,drawEnd: function(data) {
                     console.log(data);
                 },allowRepeatSelection:true
                 });
 
-            $('#mydiv1').patternLock( {centerCircle: false, selectionColor: 'red', timeout: 4000} );
+            $('#mydiv1').patternLock( {centerCircle: true, selectionColor: 'red', timeout: 4000, centerCircleSize: 20} );
             });
         </script>
     </head>
