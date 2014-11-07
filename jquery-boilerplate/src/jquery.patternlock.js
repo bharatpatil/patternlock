@@ -108,7 +108,7 @@
             if (isCanvas === true && this.options.showPatternLine === true) {
                 _that.canvas = $('.patternLockCanvas', this.element)[0];
                 _that.canvas.width = this.options.width;
-                _that.canvas.height = this.options.width;
+                _that.canvas.height = this.options.height;
                 _that.canvasContext = _that.canvas.getContext('2d');
             }
             this.bindEvents();
