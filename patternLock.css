@@ -34,9 +34,9 @@
 .patternlock .tbl td {
     background-color: #fff; /* required by IE to sense mouse over */
     border: 1px solid black;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+    -webkit-border-radius: 9999px;
+    -moz-border-radius: 9999px;
+    border-radius: 9999px;
     text-align: center;    
     cursor: pointer;
 }

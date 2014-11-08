@@ -36,6 +36,13 @@
             var elem = document.createElement('canvas');
             return !!(elem.getContext && elem.getContext('2d'));
         }()),
+        isCSSRadius = (function() {
+            var isRadius = undefined;
+            try {
+                isRadius = document.createElement('td').style['borderRadius'];
+            } catch (e) {}
+            return !(isRadius === undefined);
+        }()),
         cssstyle = '<style id="patternLockStyylee"></style>',
         i, j, idCounter, context, len;
     // The actual plugin constructor
@@ -60,6 +67,7 @@
     }
     Plugin.prototype = {
         init: function() {
+            alert('is radius supported for td: ' + isCSSRadius);
             this.initIESupport();
             if ($('#patternLockStyylee').length === 0) {
                 $(cssstyle).appendTo('head');
@@ -307,9 +315,10 @@
             $('.tbl td', this.element).removeClass('selected ' + this.selectionClass);
             this.clearCanvas();
         },
+        //used only for touch devices
         isMouseOverLockHoles: function(element, left, top) {
             var offset = element.offset();
-            if (this.options.isCircle === true) {
+            if (isCSSRadius === true && this.options.isCircle === true) {
                 var radius = element.width() / 2;
                 return this.isInsideCircle(offset.left + radius, offset.top + radius, radius, left, top);
             }
