@@ -58,15 +58,19 @@
         this._name = pluginName;
         this.init();
     }
-
     Plugin.prototype = {
         init: function() {
-            isCanvas = true;
+            this.initIESupport();
             if ($('#patternLockStyylee').length === 0) {
                 $(cssstyle).appendTo('head');
             }
-            this.selectionClassStyle += '{ background-color: ' + this.options.selectionColor + ' !important; }';
-            $('#patternLockStyylee').append(this.selectionClassStyle);
+            //try catch needed for IE8
+            try {
+                this.selectionClassStyle += '{ background-color: ' + this.options.selectionColor + ' !important; }';
+                $('#patternLockStyylee').append(this.selectionClassStyle);
+            } catch (e) {
+                this.selectionClass = 'ie8FallbackHighlight';
+            }
             var _that = this;
             // Place initialization logic here
             // You already have access to the DOM element and
@@ -79,7 +83,6 @@
                 for (i = 0, len = (this.options.rows * this.options.columns); i < len; i++) {
                     this.options.valueArray[i] = i + 1;
                 }
-
             }
             var content = '<div class="patternlock" style="width:' + this.options.width + 'px;height:' + this.options.height + 'px"><div class="insideWrapper">';
             if ($.isEmptyObject(this.options.fieldName) === false) {
@@ -87,7 +90,7 @@
             }
             if (isCanvas === true && this.options.showPatternLine === true) {
                 content += '<canvas class="patternLockCanvas" width="100%" height="100%;"></canvas>';
-            }                        
+            }
             content += '<table class="tbl tbl1" cellspacing="25px">';
             idCounter = 0;
             for (i = 1; i <= this.options.rows; i++) {
@@ -105,20 +108,21 @@
             content = content + '</table>';
             content = content + '</div></div>';
             $(this.element).append(content);
-
             /*** check if container is smaller than table ****/
             var tableWidth = $('table.tbl', this.element).outerWidth(),
                 tableHeight = $('table.tbl', this.element).outerHeight(),
                 containerElement = $('.patternlock', this.element);
-            if(tableWidth > this.options.width) {
-                this.options.width = tableWidth;                              
+            if (tableWidth > this.options.width) {
+                this.options.width = tableWidth;
             }
-            if(tableHeight > this.options.height) {
+            if (tableHeight > this.options.height) {
                 this.options.height = tableHeight;
             }
-            containerElement.css({ width: this.options.width, height: this.options.height });
+            containerElement.css({
+                width: this.options.width,
+                height: this.options.height
+            });
             /**** check if container is smaller than table *****/
-
             if (isCanvas === true && this.options.showPatternLine === true) {
                 _that.canvas = $('.patternLockCanvas', this.element)[0];
                 _that.canvas.width = this.options.width;
@@ -126,6 +130,23 @@
                 _that.canvasContext = _that.canvas.getContext('2d');
             }
             this.bindEvents();
+        },
+        initIESupport: function() {
+            //array indexOf not supported :(
+            //http://stackoverflow.com/questions/3629183/why-doesnt-indexof-work-on-an-array-ie8
+            //https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf#Compatibility    
+            if (!Array.prototype.indexOf) {
+                Array.prototype.indexOf = function(elt /*, from*/ ) {
+                    var len = this.length >>> 0;
+                    var from = Number(arguments[1]) || 0;
+                    from = (from < 0) ? Math.ceil(from) : Math.floor(from);
+                    if (from < 0) from += len;
+                    for (; from < len; from++) {
+                        if (from in this && this[from] === elt) return from;
+                    }
+                    return -1;
+                };
+            }
         },
         bindEvents: function() {
             var _that = this;
@@ -140,7 +161,6 @@
                 }
                 _that.lockStartMouse(this);
             });
-
             $('.tbl', this.element).bind('touchmove', function(evt) {
                 evt.preventDefault();
                 context = $(this);
@@ -154,7 +174,6 @@
                     clearTimeout(_that.patternClearTimeout);
                     _that.clearSelection();
                 }
-
                 var touch = evt.originalEvent.touches[0] || evt.originalEvent.changedTouches[0],
                     xpos = touch.pageX,
                     ypos = touch.pageY;
@@ -162,7 +181,6 @@
                 context = $(this);
                 _that.lockStartTouch(context, xpos, ypos);
             });
-
             $('.tbl', this.element).bind('mouseup touchend', function(evt) {
                 evt.preventDefault();
                 _that.pattenDrawEnd();
@@ -191,9 +209,7 @@
                 this.nums.push($(thatTd).attr('data-value'));
             }
         },
-
         lockStartTouch: function(context, xpos, ypos) {
-
             var element = null,
                 _that = this;
             $('td.lockTd', context).each(function() {
@@ -209,14 +225,10 @@
                     return;
                 }
             });
-
-
         },
-
         lockMoveTouch: function(context, xpos, ypos) {
             var element = null,
                 _that = this;
-
             $('td.lockTd', context).each(function() {
                 if (_that.isMouseOverLockHoles($(this), xpos, ypos)) {
                     element = $(this);
@@ -267,9 +279,7 @@
             this.canvasContext.lineWidth = this.options.lineWidth;
             this.canvasContext.beginPath();
             this.canvasContext.moveTo(c[i - 1].x, c[i - 1].y);
-
             this.canvasContext.lineTo(c[i].x, c[i].y);
-
             this.canvasContext.strokeStyle = this.options.patternLineColor;
             this.canvasContext.stroke();
             this.canvasContext.closePath();
@@ -284,8 +294,6 @@
                 this.patternClearTimeout = setTimeout(function() {
                     _that.clearSelection();
                 }, _that.options.timeout);
-
-
                 var patternValue = this.nums.join(this.options.valueSeparator);
                 if ($.isEmptyObject(this.options.fieldName) === false) {
                     $('input[type=hidden][name=' + this.options.fieldName + ']').val(patternValue);
@@ -311,7 +319,6 @@
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
     $.fn[pluginName] = function(options) {
-        
         // Is the first parameter an object (options), or was omitted,
         // instantiate a new instance of the plugin.
         if (options === undefined || typeof options === 'object') {
@@ -325,31 +332,25 @@
         // with an underscore or "contains" the `init`-function,
         // treat this as a call to a public method.
         else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-
             // Cache the method call
             // to make it possible
             // to return a value
             // var returns;
-
             this.each(function() {
                 // var instance = $.data(this, 'plugin_' + pluginName);
-
                 // Tests that there's already a plugin-instance
                 // and checks that the requested public method exists
                 // if (instance instanceof Plugin && typeof instance[options] === 'function') {
-
-                    // Call the method of our plugin instance,
-                    // and pass it the supplied arguments.
-                    // returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
+                // Call the method of our plugin instance,
+                // and pass it the supplied arguments.
+                // returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
                 // }
-
                 // Allow instances to be destroyed via the 'destroy' method
                 if (options === 'destroy') {
                     $.data(this, 'plugin_' + pluginName, null);
                     $(this).empty();
                 }
             });
-
             // If the earlier cached method
             // gives a value back return the value,
             // otherwise return this to preserve chainability.

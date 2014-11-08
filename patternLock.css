@@ -40,6 +40,11 @@
     text-align: center;    
     cursor: pointer;
 }
+
+.patternlock .tbl td.ie8FallbackHighlight {
+    background-color: red;
+}
+
 .patternlock .centerCircle{
     border:1px solid red;
     margin:auto;

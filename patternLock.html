@@ -1,31 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
         <title>Pattern Authenticator</title>
+
         <link rel="stylesheet" type="text/css" href="patternLock.css" />
         <link rel="stylesheet" type="text/css" href="patternLock-theme.css" />
-        <style type="text/css">
-        </style>
         <script src="jquery-1.11.1.min.js"></script>
-        <script src="jquery-boilerplate/dist/jquery.patternlock.js"></script>        
+        <script src="jquery-boilerplate/dist/jquery.patternlock.js"></script>
         <script>
-            $(document).ready(function(){
-            $("#mydiv").patternLock({                
-                width: 240,
-                height: 300,
-                rows: 8,
-                columns: 9,
-             patternLineColor: '#f00',showPatterLine:false,fieldName: 'pattern',valueSeparator:'-',valueArray:[9,8,7,6,5,4,3,2,1],centerCircle:true,centerCircleSize:15, showPatternLine: true, lineWidth: 4 
-                ,drawEnd: function(data) {
-                    console.log(data);
-                },allowRepeatSelection:true
+                $(document).ready(function(){
+                    $("#mydiv").patternLock({
+                            width: 240,
+                            height: 300,
+                            rows: 8,
+                            columns: 9,
+                            patternLineColor: '#f00',
+                            showPatterLine:false,
+                            fieldName: 'pattern',
+                            valueSeparator:'-',
+                            valueArray:[9,8,7,6,5,4,3,2,1],
+                            centerCircle:true,
+                            centerCircleSize:15, 
+                            showPatternLine: true, 
+                            lineWidth: 4,
+                            drawEnd: function(data) {
+                                console.log(data);
+                            },
+                            allowRepeatSelection:true
+                        });
+                    $('#mydiv1').patternLock({
+                            centerCircle: true, 
+                            selectionColor: 'red', 
+                            timeout: 4000, 
+                            centerCircleSize: 20,
+                            drawEnd: function(data) {
+                                console.log(data);
+                            }
+                    });
                 });
-
-            $('#mydiv1').patternLock( {centerCircle: true, selectionColor: 'red', timeout: 4000, centerCircleSize: 20} );
-            });
         </script>
     </head>
     <body>
