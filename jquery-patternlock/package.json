@@ -1,10 +1,9 @@
 {
-  "name": "jquery-boilerplate",
-  "title": "jQuery Boilerplate",
+  "name": "jquery-patternlock",
+  "title": "jQuery Patternlock",
   "description": "A jump-start for jQuery plugins development.",
-  "author": "Zeno Rocha",
-  "homepage": "https://github.com/jquery-boilerplate/boilerplate/",
-  "version": "3.3.1",
+  "author": "Bharat Patil",
+  "version": "1.0.0",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.7",
