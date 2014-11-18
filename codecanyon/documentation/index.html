@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Template Documentation Template</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;jQuery patternLock&rdquo; Documentation by &ldquo;Bharat Patil&rdquo; v1.0</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;jQuery patternLock&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 29/10/2014<br>
+					By: Bharat Patil<br>
+					Email: <a href="mailto:sun.bharat.patil@gmail.com">sun.bharat.patil@gmail.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my jQuery plugin. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/bharatpatil">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#gettingStarted">Getting Started</a></li>
+			<li><a href="#basicExampleWithId">Basic Example - with id selector</a></li>
+			<li><a href="#basicExampleWithClass">Basic Example - with class selector</a></li>
+			
+		</ol>
+		
+		<hr>
+		
+		<h3 id="gettingStarted"><strong>A) Getting Started</strong> - <a href="#toc">top</a></h3>
+		<p>Before you can start using patternLock you have to include the css and the js files inside the <b>&lt;head&gt;&lt;/head&gt;</b> section of your webpage:</p>
+<pre>	
+&lt;link  href="patterLock.css" type="text/css" &gt; 
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="jquery.patternlock.js"&gt;&lt;/script&gt;
+</pre>
+		<img src="assets/images/gettingStarted.jpg" alt="Getting Started">
+		<hr>
+
+		<h3 id="basicExampleWithId"><strong>B) Basic Example - with id selector</strong> - <a href="#toc">top</a></h3>
+
+		<p>Once above files are included you can use patternLock like below</p> 
+		<img src="assets/images/basic-example.png" alt="Basic Example using ID">
+
+		<p><b>Output</b></p>
+		<img src="assets/images/basic-example-output.png" alt="Basic Example Output">
+
+<pre>
+&lt;div id=&quot;pattern&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$('#pattern').patternLock();
+	});
+&lt;/script&gt;	
+</pre>
+		<hr>
+
+		<h3 id="basicExampleWithClass"><strong>B) Basic Example - with class selector</strong> - <a href="#toc">top</a></h3>
+
+		<p>You can even use jquery class selector to create pattern lock</p> 
+		<img src="assets/images/basic-example-with-class.png" alt="Basic Example using class selector">
+		<p><b>Output</b></p>
+		<img src="assets/images/basic-example-output.png" alt="Basic Example Output">
+<pre>
+&lt;div class=&quot;pattern&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$('.pattern').patternLock();
+	});
+&lt;/script&gt;	
+</pre>
+		<hr>
+
+		
+				
+		<p class="append-bottom alt large"><strong>Bharat Patil</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
