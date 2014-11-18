@@ -1,6 +1,7 @@
 .patternlock {
     border: 1px solid black;
     border-radius: 10px;
+    box-shadow: inset 0px 0px 10px #aaa;
 }
 
 .patternlock, .patternlock * {
@@ -39,6 +40,10 @@
     border-radius: 50%;
     text-align: center;    
     cursor: pointer;
+    box-shadow: 4px 4px 4px #aaa;
+}
+.patternlock .tbl td:hover {
+    box-shadow: 4px 4px 4px #ccc;   
 }
 
 .patternlock .tbl td.ie8FallbackHighlight {
