@@ -11,6 +11,9 @@
 		p, table, hr, .box { margin-bottom:25px; }
 		.box p { margin-bottom:10px; }
 	</style>
+	<link rel="stylesheet" type="text/css" href="../patternLock.css">
+	<script type="text/javascript" src="assets/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../jquery.patternlock.min.js"></script>	
 </head>
 
 
@@ -46,6 +49,9 @@
 			<li><a href="#gettingStarted">Getting Started</a></li>
 			<li><a href="#basicExampleWithId">Basic Example - with id selector</a></li>
 			<li><a href="#basicExampleWithClass">Basic Example - with class selector</a></li>
+			<li><a href="#centerCircles">Example with center circles</a></li>
+			<li><a href="#patternLine">Show or hide pattern line and change color of pattern line</a></li>
+			<li><a href="#highlightColor">Change pattern hole highlight color</a></li>
 			
 		</ol>
 		
@@ -64,10 +70,6 @@
 		<h3 id="basicExampleWithId"><strong>B) Basic Example - with id selector</strong> - <a href="#toc">top</a></h3>
 
 		<p>Once above files are included you can use patternLock like below</p> 
-		<img src="assets/images/basic-example.png" alt="Basic Example using ID">
-
-		<p><b>Output</b></p>
-		<img src="assets/images/basic-example-output.png" alt="Basic Example Output">
 
 <pre>
 &lt;div id=&quot;pattern&quot;&gt;&lt;/div&gt;
@@ -77,14 +79,18 @@
 	});
 &lt;/script&gt;	
 </pre>
+
+		<!-- <img src="assets/images/basic-example.png" alt="Basic Example using ID"> -->
+
+		<p><b>Output</b></p>
+		<div id="pattern"></div>
+		<br>
 		<hr>
 
 		<h3 id="basicExampleWithClass"><strong>B) Basic Example - with class selector</strong> - <a href="#toc">top</a></h3>
 
 		<p>You can even use jquery class selector to create pattern lock</p> 
-		<img src="assets/images/basic-example-with-class.png" alt="Basic Example using class selector">
-		<p><b>Output</b></p>
-		<img src="assets/images/basic-example-output.png" alt="Basic Example Output">
+
 <pre>
 &lt;div class=&quot;pattern&quot;&gt;&lt;/div&gt;
 &lt;script type=&quot;text/javascript&quot;&gt;
@@ -93,14 +99,122 @@
 	});
 &lt;/script&gt;	
 </pre>
+
+		<p><b>Output</b></p>
+		<div class="pattern"></div>
+		<br>
 		<hr>
 
+		<h3 id="centerCircles"><strong>D) Example with center circles</strong> - <a href="#toc">top</a></h3>
+
+		<p>You can choose to show center circles as well as you can change size of it</p> 
+
+<pre>
+&lt;div id=&quot;patternCircles&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$('#patternCircles').patternLock({
+			centerCircle: true,
+			centerCircleSize: 20
+		});
+	});
+&lt;/script&gt;	
+</pre>
+
+		<p><b>Output</b></p>
+		<div id="patternCircles"></div>
+		<br>
+		<hr>
+<!---- START ------>		
+		<h3 id="patternLine"><strong>E) Show or hide pattern line and change color of pattern line</strong> - <a href="#toc">top</a></h3>
+
+		<p>You can choose to hide pattern line. Also you can change color or width of line. Pattern line is by default visible.</p> 
+		<p>Visible Pattern Line</p>
+<pre>
+&lt;div id=&quot;patternLineEx&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$('#patternLineEx').patternLock({
+			lineWidth: 10,
+			patternLineColor: '#ff0000',
+			showPatternLine: true
+		});
+	});
+&lt;/script&gt;	
+</pre>
+<p>Hidden Pattern Line</p>
+<pre>
+&lt;div id=&quot;patternLineEx&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$('#patternLineEx').patternLock({
+			showPatternLine: false
+		});
+	});
+&lt;/script&gt;	
+</pre>
+
+		<p><b>Output</b></p>
+		<table>
+		<tr><td>Visible Pattern Line</td><td>Hidden Pattern Line</td></tr>
+		<tr><td>
+			<div id="patternLineEx"></div>	
+		</td><td>
+			<div id="patternLineExV"></div>
+		</td></tr></table>
 		
-				
+		<br>
+		<hr>
+<!---- END ------>
+
+<!---- START ------>		
+		<h3 id="highlightColor"><strong>F) Change pattern hole highlight color</strong> - <a href="#toc">top</a></h3>
+
+		<p>To set background color of selected pattern hole, you can use 'selectionColor' option. It accepts css color value. If you don't want to highlight then pass 'transparent' as value.</p> 
+<pre>
+&lt;div id=&quot;patternHighlightColor&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$('#patternHighlightColor').patternLock({
+			selectionColor: '#ff0000'
+		});
+	});
+&lt;/script&gt;	
+</pre>
+
+		<p><b>Output</b></p>
+		<div id="patternHighlightColor"></div>
+		<br>
+		<hr>
+<!---- END ------>				
+
 		<p class="append-bottom alt large"><strong>Bharat Patil</strong></p>
 		<p><a href="#toc">Go To Table of Contents</a></p>
 		
 		<hr class="space">
 	</div><!-- end div .container -->
 </body>
+
+<script type="text/javascript">
+$(function(){
+	$('#pattern, .pattern').patternLock();
+	$('#patternCircles').patternLock({
+		centerCircle: true,
+		centerCircleSize: 20
+	});
+	$('#patternLineEx').patternLock({
+		lineWidth: 10,
+		patternLineColor: '#ff0000',
+		showPatternLine: true
+	});
+	$('#patternLineExV').patternLock({
+		showPatternLine: false
+	});	
+	$('#patternHighlightColor').patternLock({
+		selectionColor: '#ff0000'
+	});
+
+});
+</script>
+
 </html>

@@ -36,14 +36,15 @@
             centerCircleSize: 10,
             drawEnd: null,
             selectionColor: '#0000ff',
-            timeout: 500
+            timeout: 500,
+            allowRepeatSelection: false
         },
         isCanvas = (function() {
             //function taken from http://stackoverflow.com/questions/2745432/best-way-to-detect-that-html5-canvas-is-not-supported
             var elem = document.createElement('canvas');
             return !!(elem.getContext && elem.getContext('2d'));
         }()),
-        cssstyle = '<style id="patternLockStyylee">.patternlock{border:1px solid #000}.patternlock,.patternlock *{cursor: default;-webkit-touch-callout:none;touch-callout:none;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}.patternlock .insideWrapper{position:relative;height:100%;width:100%}.patternlock .insideWrapper .tbl,.patternlock .insideWrapper canvas{width:100%;height:100%;position:absolute;top:0;left:0}.patternlock .insideWrapper .tbl{border-collapse:separate;border-spacing:25px}.patternlock .tbl td{cursor: pointer;border:1px solid #000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;text-align:center}.patternlock .centerCircle{cursor: pointer;border:1px solid red;margin:auto;border-radius:50%;background-color:#ff0}</style>',
+        cssstyle = '<style id="patternLockStyylee"></style>',
         i, j, idCounter, context, len;
     // The actual plugin constructor
     function Plugin(element, options) {
@@ -65,14 +66,19 @@
         this._name = pluginName;
         this.init();
     }
-
     Plugin.prototype = {
         init: function() {
+            this.initIESupport();
             if ($('#patternLockStyylee').length === 0) {
                 $(cssstyle).appendTo('head');
             }
-            this.selectionClassStyle += '{ background-color: ' + this.options.selectionColor + ' }';
-            $('#patternLockStyylee').append(this.selectionClassStyle);
+            //try catch needed for IE8
+            try {
+                this.selectionClassStyle += '{ background-color: ' + this.options.selectionColor + ' !important; }';
+                $('#patternLockStyylee').append(this.selectionClassStyle);
+            } catch (e) {
+                this.selectionClass = 'ie8FallbackHighlight';
+            }
             var _that = this;
             // Place initialization logic here
             // You already have access to the DOM element and
@@ -85,7 +91,6 @@
                 for (i = 0, len = (this.options.rows * this.options.columns); i < len; i++) {
                     this.options.valueArray[i] = i + 1;
                 }
-
             }
             var content = '<div class="patternlock" style="width:' + this.options.width + 'px;height:' + this.options.height + 'px"><div class="insideWrapper">';
             if ($.isEmptyObject(this.options.fieldName) === false) {
@@ -101,22 +106,55 @@
                 for (j = 1; j <= this.options.columns; j++) {
                     content = content + '<td class="lockTd cell-' + this.options.valueArray[idCounter] + '" data-value="' + this.options.valueArray[idCounter] + '">';
                     if (this.options.centerCircle) {
-                        content = content + '<div class="centerCircle cir-' + this.options.valueArray[idCounter] + '" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px">&nbsp;</div>';
+                        content = content + '<div class="centerCircle cir-' + this.options.valueArray[idCounter] + '" style="width:' + this.options.centerCircleSize + 'px;height:' + this.options.centerCircleSize + 'px"></div>';
                     }
                     idCounter++;
                     content = content + '</td>';
                 }
                 content = content + "</tr>";
             }
-            content = content + '</table></div></div>';
+            content = content + '</table>';
+            content = content + '</div></div>';
             $(this.element).append(content);
+            /*** check if container is smaller than table ****/
+            var tableWidth = $('table.tbl', this.element).outerWidth(),
+                tableHeight = $('table.tbl', this.element).outerHeight(),
+                containerElement = $('.patternlock', this.element);
+            if (tableWidth > this.options.width) {
+                this.options.width = tableWidth;
+            }
+            if (tableHeight > this.options.height) {
+                this.options.height = tableHeight;
+            }
+            containerElement.css({
+                width: this.options.width,
+                height: this.options.height
+            });
+            /**** check if container is smaller than table *****/
             if (isCanvas === true && this.options.showPatternLine === true) {
                 _that.canvas = $('.patternLockCanvas', this.element)[0];
                 _that.canvas.width = this.options.width;
-                _that.canvas.height = this.options.width;
+                _that.canvas.height = this.options.height;
                 _that.canvasContext = _that.canvas.getContext('2d');
             }
             this.bindEvents();
+        },
+        initIESupport: function() {
+            //array indexOf not supported :(
+            //http://stackoverflow.com/questions/3629183/why-doesnt-indexof-work-on-an-array-ie8
+            //https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf#Compatibility    
+            if (!Array.prototype.indexOf) {
+                Array.prototype.indexOf = function(elt /*, from*/ ) {
+                    var len = this.length >>> 0;
+                    var from = Number(arguments[1]) || 0;
+                    from = (from < 0) ? Math.ceil(from) : Math.floor(from);
+                    if (from < 0) from += len;
+                    for (; from < len; from++) {
+                        if (from in this && this[from] === elt) return from;
+                    }
+                    return -1;
+                };
+            }
         },
         bindEvents: function() {
             var _that = this;
@@ -131,7 +169,6 @@
                 }
                 _that.lockStartMouse(this);
             });
-
             $('.tbl', this.element).bind('touchmove', function(evt) {
                 evt.preventDefault();
                 context = $(this);
@@ -145,7 +182,6 @@
                     clearTimeout(_that.patternClearTimeout);
                     _that.clearSelection();
                 }
-
                 var touch = evt.originalEvent.touches[0] || evt.originalEvent.changedTouches[0],
                     xpos = touch.pageX,
                     ypos = touch.pageY;
@@ -153,7 +189,6 @@
                 context = $(this);
                 _that.lockStartTouch(context, xpos, ypos);
             });
-
             $('.tbl', this.element).bind('mouseup touchend', function(evt) {
                 evt.preventDefault();
                 _that.pattenDrawEnd();
@@ -175,16 +210,14 @@
         lockMoveMouse: function(thatTd) {
             var num = $(thatTd).attr('data-value'),
                 lastNum = this.nums[this.nums.length - 1];
-            if (this.started === true && lastNum !== num) {
+            if (this.started === true && lastNum !== num && (this.options.allowRepeatSelection || this.nums.indexOf(num) === -1)) {
                 this.arrCoordinates.push(this.getCenter(thatTd));
                 this.drawLine();
                 $(thatTd).addClass('selected ' + this.selectionClass);
                 this.nums.push($(thatTd).attr('data-value'));
             }
         },
-
         lockStartTouch: function(context, xpos, ypos) {
-
             var element = null,
                 _that = this;
             $('td.lockTd', context).each(function() {
@@ -200,20 +233,16 @@
                     return;
                 }
             });
-
-
         },
-
         lockMoveTouch: function(context, xpos, ypos) {
             var element = null,
                 _that = this;
-
             $('td.lockTd', context).each(function() {
                 if (_that.isMouseOverLockHoles($(this), xpos, ypos)) {
                     element = $(this);
                     var num = $(element).attr('data-value'),
                         lastNum = _that.nums[_that.nums.length - 1];
-                    if (_that.started === true && lastNum !== num) {
+                    if (_that.started === true && lastNum !== num && (_that.options.allowRepeatSelection || _that.nums.indexOf(num) === -1)) {
                         _that.arrCoordinates.push(_that.getCenter(element));
                         _that.drawLine();
                         $(element).addClass('selected ' + _that.selectionClass);
@@ -258,9 +287,7 @@
             this.canvasContext.lineWidth = this.options.lineWidth;
             this.canvasContext.beginPath();
             this.canvasContext.moveTo(c[i - 1].x, c[i - 1].y);
-
             this.canvasContext.lineTo(c[i].x, c[i].y);
-
             this.canvasContext.strokeStyle = this.options.patternLineColor;
             this.canvasContext.stroke();
             this.canvasContext.closePath();
@@ -275,8 +302,6 @@
                 this.patternClearTimeout = setTimeout(function() {
                     _that.clearSelection();
                 }, _that.options.timeout);
-
-
                 var patternValue = this.nums.join(this.options.valueSeparator);
                 if ($.isEmptyObject(this.options.fieldName) === false) {
                     $('input[type=hidden][name=' + this.options.fieldName + ']').val(patternValue);
@@ -302,7 +327,6 @@
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
     $.fn[pluginName] = function(options) {
-        
         // Is the first parameter an object (options), or was omitted,
         // instantiate a new instance of the plugin.
         if (options === undefined || typeof options === 'object') {
@@ -316,31 +340,25 @@
         // with an underscore or "contains" the `init`-function,
         // treat this as a call to a public method.
         else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-
             // Cache the method call
             // to make it possible
             // to return a value
             // var returns;
-
             this.each(function() {
                 // var instance = $.data(this, 'plugin_' + pluginName);
-
                 // Tests that there's already a plugin-instance
                 // and checks that the requested public method exists
                 // if (instance instanceof Plugin && typeof instance[options] === 'function') {
-
-                    // Call the method of our plugin instance,
-                    // and pass it the supplied arguments.
-                    // returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
+                // Call the method of our plugin instance,
+                // and pass it the supplied arguments.
+                // returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
                 // }
-
                 // Allow instances to be destroyed via the 'destroy' method
                 if (options === 'destroy') {
                     $.data(this, 'plugin_' + pluginName, null);
                     $(this).empty();
                 }
             });
-
             // If the earlier cached method
             // gives a value back return the value,
             // otherwise return this to preserve chainability.

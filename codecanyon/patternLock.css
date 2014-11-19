@@ -41,6 +41,8 @@
     text-align: center;    
     cursor: pointer;
     box-shadow: 4px 4px 4px #aaa;
+    padding: 0;
+    vertical-align: middle;
 }
 .patternlock .tbl td:hover {
     box-shadow: 4px 4px 4px #ccc;   
