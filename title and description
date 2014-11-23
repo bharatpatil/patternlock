@@ -1,0 +1,18 @@
+codecanyon.com title and description
+
+PatternLock for the Web
+
+PatterLock jQuery plugin is similar to pattern lock that we can found on our cell phones. It allows you to make use of pattern as a password generator or password itself. This plugin is highly customizable, with it's style documentation you can create your own personalized pattern lock. It is also touch friendly allowing you to use it on touch devices. It gracefully degrades it's functionality based on devices.
+
+Main features:
+1. any number of rows and columns.
+2. assign your own values to each pattern hole.
+3. disable or enable pattern line.
+4. width and color of pattern line.
+5. timeout for showing drawn pattern.
+6. use inside &lt;form&gt; tag.
+7. width and hight of pattern holes.
+8. modify css to personalize pattern lock like background image, background color etc.
+9. callback function to get drawn pattern.
+10. initialize/re-initialize or destroy plugin.
+ 

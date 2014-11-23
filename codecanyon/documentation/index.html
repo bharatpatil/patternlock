@@ -59,6 +59,7 @@
 			<li><a href="#valueArray">valueArray option</a></li>
 			<li><a href="#allowRepeatSelection">Enable/Disable repeated selection of pattern hole</a></li>
 			<li><a href="#timeout">Pattern selection timeout</a></li>
+			<li><a href="#destroy">Destroy pattern lock</a></li>
 			<li><a href="#forms">How to use patternLock inside a &lt;form&gt;&lt;/form&gt;</a></li>
 			<li><a href="#cssClasses">How to modify CSS to personalize patterLock</a></li>			
 		</ol>
@@ -400,7 +401,46 @@ Note: Try selecting 1,2,3,2 and see the below generated pattern
 <!---- END ------>
 
 <!---- START ------>		
-		<h3 id="forms"><strong>N) How to use patternLock inside a &lt;form&gt;&lt;/form&gt;</strong> - <a href="#toc">top</a></h3>
+		<h3 id="destroy"><strong>M) Destroy pattern lock</strong> - <a href="#toc">top</a></h3>
+
+		<p>You can inialize of destroy pattern lock. This is particularly useful in single page application to avoid memory leaks. When you call this method, it will remove any data associated with element and also unbinds events thus freeing memory.
+		</p> 
+<pre>
+&lt;input type=&quot;button&quot; value=&quot;Destroy&quot; id=&quot;destroyPatternLock&quot; /&gt;
+&lt;input type=&quot;button&quot; value=&quot;Create&quot; id=&quot;createPatternLock&quot; /&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;div id=&quot;patternDe&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	function createPatternLock() {
+		$('#patternDe').patternLock();
+	}
+	function destroyPatternLock() {
+		$('#patternDe').patternLock('destroy');
+	}	
+	$(document).ready(function(){
+		createPatternLock();
+
+		$('#destroyPatternLock').click(function(){
+			destroyPatternLock();
+		});
+
+		$('#createPatternLock').click(function(){
+			createPatternLock();
+		});		
+	});
+&lt;/script&gt;	
+</pre>	
+		<p><b>Output</b></p>
+		<input type="button" value="Destroy" id="destroyPatternLock" />
+		<input type="button" value="Create" id="createPatternLock" />
+		<br><br>		
+		<div id="patternDe"></div>
+		<br>
+		<hr>
+<!---- END ------>
+
+<!---- START ------>		
+		<h3 id="forms"><strong>O) How to use patternLock inside a &lt;form&gt;&lt;/form&gt;</strong> - <a href="#toc">top</a></h3>
 
 		<p>It is very easy to use pattern lock inside form elements. Just put your pattern selector inside <b>&lt;form&gt;&lt;/form&gt;</b> element and specify 'fieldName' option with the name that you want. And a hidden field will be generated automatically with that name.
 		</p> 
@@ -427,7 +467,7 @@ Note: Try selecting 1,2,3,2 and see the below generated pattern
 <!---- END ------>
 
 <!---- START ------>		
-		<h3 id="cssClasses"><strong>O) How to modify CSS to personalize patterLock</strong> - <a href="#toc">top</a></h3>
+		<h3 id="cssClasses"><strong>P) How to modify CSS to personalize patterLock</strong> - <a href="#toc">top</a></h3>
 
 		<p> jQuery patternLock is highliy customizable. You can customize look and feel the way you want. To do this you need to know which are main CSS classes to be modified to customize patternLock. Also you can find these classes in given <a href="../patternLock.css" target="_blank">css</a> file, though you need not to directly modify this file.
 
@@ -580,7 +620,25 @@ $(function(){
 	$('#patternForm').patternLock({
 		fieldName: 'generatedPattern'
 	});	
+
+	createPatternLock();
+
+	$('#destroyPatternLock').click(function(){
+		destroyPatternLock();
+	});
+
+	$('#createPatternLock').click(function(){
+		createPatternLock();
+	});	
 });
+
+function createPatternLock() {
+	$('#patternDe').patternLock();
+}
+function destroyPatternLock() {
+	$('#patternDe').patternLock('destroy');
+}	
+
 </script>
 
 </html>
