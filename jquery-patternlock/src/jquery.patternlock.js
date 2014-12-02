@@ -108,6 +108,13 @@
             content = content + '</table>';
             content = content + '</div></div>';
             $(this.element).append(content);
+            //maintain height and width, if contents are there then widht and height disturbs
+            //new feature from codecanyon comment.
+            $('td.lockTd', this.element). each(function(){
+                var width = $(this).width(),
+                    height = $(this).height();
+                    $(this).css({ width: width, height: height });
+            });
             /*** check if container is smaller than table ****/
             var tableWidth = $('table.tbl', this.element).outerWidth(),
                 tableHeight = $('table.tbl', this.element).outerHeight(),
